@@ -1,0 +1,170 @@
+doctype html
+html
+  head
+    title ServiBus Website
+    
+    script(src="javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="javascripts/materialize.js")
+    script(type="text/javascript" src="javascripts/moments.js")
+    script(src="javascripts/indexContador.js")
+    
+    link(rel="stylesheet" type="text/css" href="stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="stylesheets/materialize.css")
+    link(rel="stylesheet" type="text/css" href="fonts/iconfont/material-icons.css")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    
+  body  
+        div(class="z-depth-3 col s12 m10 l10 offset-l1 ")
+          div
+            div(class="row grey lighten-3")
+              div(class="col s1 push-s1 ")
+                ul(id="slide-out" class="sidenav light-blue darken-4")
+                  li
+                    div(class="user-view")
+                      div(class="background green")
+                        img(src="")
+                      a(href="#user")
+                        img(class="circle" src="images/primera.jpg")
+                      a(href="#name")
+                        span(class="white-text name" style="font-size:20px") #{user_nombre}
+                      a(href="/logout/")
+                        span(style="color: #ed1b24; font-weight:bold") Cerrar sesion
+                  li
+                    a(class="white-text" href="/reporte_rendimiento") Reporte de rendimiento y control
+                  li
+                    a(class="white-text" href="/indexConta") Ver reportes de rendimiento y control
+                  li
+                    a(href="/bitacora_manteni" class="white-text") Bitacora de mantenimiento
+                a(href="#" data-target="slide-out" class="sidenav-trigger")
+                  i(class="material-icons #01579b" style="font-size: 40px; padding-top:30px" ) menu    
+              div(class="col s7 push-s2")
+                  img(src="images/mapa.png" width="120" height="70" style="padding-top: 10px")
+                  h4(class="right green-text darken-4" style="padding-bottom:10px; padding-left:20px") ServiBus Servicios Turisticos Terrestres 
+        
+        div(class="container")
+          div(class="row")
+            div(clas="col l10 m12 s12 offset-l1")
+              h4.center.bold Registro del reporte de rendimiento y control de viaje
+              
+            div(class="col l8 offset-l2 m12 s10")
+              form(onsubmit="return findContrato(this)")
+                div(class="input-field z-depth-3")
+                  input(id="search" name="contrato" type="search" required="true" style="text-align:center" placeholder="Buscar numero de contrato")
+                  label(class="label-icon" for="contrato")
+                    i(class="material-icons left" style="padding-top:10px") search
+                  i(class="material-icons") close
+                          
+          div(class="col l12 m12 s12")
+            
+            form(method="post" action="/registrar/reporte/rendimiento")
+              div(class="row")
+                label(for="aDate" id="aDate" style="font-size: 20px; color: blue; text-bold; font-weight:bold" class="form-control col s3 push-s9")
+              div(id="dataInfo")
+                div(class="row")
+                  div(class="input-field col s8")
+                    input(id="operador" type="text" class="validate color-text-blue" required)
+                    label(for="operador" style="color:blue") Nombre del operador
+                  div(class="input-field col s4")
+                    input(id="unidad" type="text" class="validate color-text-blue" required)
+                    label(for="unidad" style="color:blue") Unidad
+                div(class="row")
+                  div(class="input-field col s3")
+                    i(class="material-icons prefix") date_range
+                    input(type="text" class="validate" id="fecha_salida")
+                    label(for="fecha_salida" style="color:blue") Fecha salida
+                  div(class="input-field col s3")
+                    i(class="material-icons prefix") access_time
+                    input(type="text" class="validate" id="hora_salida")
+                    label(for="hora_salida" style="color:blue") Hora salida
+                  div(class="input-field col s3")
+                    i(class="material-icons prefix") date_range
+                    input(type="text" class="validate" id="fecha_regreso")
+                    label(for="fecha_regreso" style="color:blue; font-size:14px") Fecha de llegada
+                  div(class="input-field col s3")
+                    input(type="text" class="validate" id="numDias")
+                    label(for="numDias" style="color:blue") Numero de dias
+                div(class="row")
+                  div(class="input-field col s4")
+                    input(id="destino" type="text" class="validate color-text-blue" required)
+                    label(for="destino" style="color:blue") Destino
+                  div(class="input-field col s8")
+                    input(id="itinerario" type="text" class="validate color-text-blue" required)
+                    label(for="itinerario" style="color:blue") Itinerario
+                div(class="row")
+                  div(class="input-field col s4")
+                    input(id="responsable" type="text" class="validate color-text-blue" required)
+                    label(for="responsable" style="color:blue") Nombre del responsable
+                  div(class="input-field col s4")
+                    input(id="telefono" type="text" class="validate color-text-blue" required)
+                    label(for="telefono" style="color:blue") Telefono
+                  div(class="input-field col s4")
+                    input(id="importe" type="text" class="validate color-text-blue" required)
+                    label(for="importe" style="color:blue") Importe del servicio $
+                div(class="row")
+                  div(class="input-field col s4")
+                    input(id="kmSalida" type="text" class="validate color-text-blue" required)
+                    label(for="kmSalida" style="color:blue") Km Salida
+                  div(class="input-field col s4")
+                    input(id="kmLLegada" type="text" class="validate color-text-blue" required)
+                    label(for="kmLLegada" style="color:blue") Km LLegada
+                  div(class="input-field col s4")
+                    input(id="kmRecorridos" type="text" class="validate color-text-blue" required)
+                    label(for="kmRecorridos" style="color:blue") Km Recorridos                      
+                div(class="row")
+                  div(class="input-field col s4")
+                    input(id="combustibleLts" type="text" class="validate color-text-blue" required)
+                    label(for="combustibleLts" style="color:blue") Combustible Lts.
+                  div(class="input-field col s4")
+                    input(id="combustiblePre" type="text" class="validate color-text-blue" required)
+                    label(for="combustiblePre" style="color:blue") Precio de combustible $
+                  div(class="input-field col s4")
+                    input(id="rendimiento" type="text" class="validate color-text-blue" required)
+                    label(for="rendimiento" style="color:blue") Rendimiento
+                div(class="row")
+                  div(class="input-field col s4")
+                    input(id="gastos_operador" type="text" class="validate color-text-blue" required)
+                    label(for="gastos_operador" style="color:blue") Importe de gastos al operador $
+                  div(class="input-field col s4")
+                    input(id="tipoPago" type="text" class="validate color-text-blue" required)
+                    label(for="tipoPago" style="color:blue") Tipo pago % / comision
+                  div(class="input-field col s4")
+                    input(id="pagoOperador" type="text" class="validate color-text-blue" required)
+                    label(for="pagoOperador" style="color:blue") Pago al operador $
+                div(class="row")
+                  div(class="input-field col s4")
+                    input(id="casetas" type="text" class="validate color-text-blue" required)
+                    label(for="casetas" style="color:blue") Pago de casetas $
+                  div(class="input-field col s4")
+                    input(id="gastosEx" type="text" class="validate color-text-blue" required)
+                    label(for="gastosEx" style="color:blue") Gastos extra $
+                  div(class="input-field col s4")
+                    input(id="otrosG" type="text" class="validate color-text-blue" required)
+                    label(for="otrosG" style="color:blue") Otros Gastos $
+                div(class="row")
+                  div(class="input-field col s8 push-s4")
+                    input(id="utilidad" type="text" class="validate color-text-blue" required)
+                    label(for="utilidad" style="color:blue") Utilidad $
+              div(class="row")
+                div(class="col s12")
+                  button(class="btn waves-effect waves-light col s8 push-s4" type="submit" name="generar") Generar reporte
+                         i(class="material-icons right") send
+        
+        script.
+              (function($){
+                $(function(){
+                $('.sidenav').sidenav();
+                $(".dropdown-trigger").dropdown();
+                });
+              })(jQuery);
+              $(document).ready(function(){
+                $('.datepicker').datepicker();
+              });
+              $(document).ready(function() {
+                var now = moment();
+                $("#aDate").text(now.format("lll"));
+              });
+            
+              
+              
+          

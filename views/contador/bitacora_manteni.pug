@@ -1,0 +1,98 @@
+doctype html
+html
+  head
+    title ServiBus Website
+    
+    script(src="javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="javascripts/materialize.js")
+    script(tyep="text/javascript" src="javascripts/moments.js")
+    
+    link(rel="stylesheet" type="text/css" href="stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="stylesheets/materialize.css")
+    link(rel="stylesheet" type="text/css" href="fonts/iconfont/material-icons.css")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    
+  body  
+        div(class="z-depth-3 col s12 m10 l10 offset-l1 ")
+          div
+            div(class="row grey lighten-3")
+              div(class="col s1 push-s1 ")
+                ul(id="slide-out" class="sidenav light-blue darken-4")
+                  li
+                    div(class="user-view")
+                      div(class="background green")
+                        img(src="")
+                      a(href="#user")
+                        img(class="circle" src="images/primera.jpg")
+                      a(href="#name")
+                        span(class="white-text name" style="font-size:20px") #{user_nombre}
+                      a(href="/logout/")
+                        span(style="color: #ed1b24; font-weight:bold") Cerrar sesion
+                  li
+                    a(class="white-text" href="/reporte_rendimiento") Reporte de rendimiento y control
+                  li
+                    a(class="white-text" href="/indexConta") Ver reportes de rendimiento y control 
+                  li
+                    a(href="/bitacora_manteni" class="white-text") Bitacora de mantenimiento
+                a(href="#" data-target="slide-out" class="sidenav-trigger")
+                  i(class="material-icons #01579b" style="font-size: 40px; padding-top:30px" ) menu    
+              div(class="col s7 push-s2")
+                  img(src="images/mapa.png" width="120" height="70" style="padding-top: 10px")
+                  h4(class="right green-text darken-4" style="padding-bottom:10px; padding-left:20px") ServiBus Servicios Turisticos Terrestres 
+        
+        div(class="container")
+          div(class="row padding-top padding-bottom")
+            div(clas="col s12 m10 l10 offset-l1")
+              h4.center.bold Bitacora de mantenimiento
+              label(for="aDate" id="aDate" style="font-size: 20px; color: blue; text-bold; font-weight:bold" class="form-control col s3 push-s9")
+            div(class="col l12 m12 s12")            
+              table.highlight.z-depth-3.centered.responsive-table
+                thead
+                  tr
+                    th No. Economico
+                    th No. Placas
+                    th Marcar
+                    th Modelo
+                    th Km. Actual
+                    th
+                tbody()
+                  each mantenimiento in mantenimientos
+                    tr
+                      -color = 'light-green accent-1';
+                      if mantenimiento.estatus == "Necesita" 
+                        -color = 'red accent-4'  
+                      else if mantenimiento.estatus =="Proximo"
+                        -color = 'yellow'
+                      
+                      td(class=color)=mantenimiento.numero_economico
+                      td()=mantenimiento.numero_placas
+                      td()=mantenimiento.marca_unidad
+                      td()=mantenimiento.modelo_unidad
+                      td()=mantenimiento.kilometraje_actual
+                      th()
+                        a(style="visibility='hidden';" id="boton" class="tooltipped" data-position="top" data-tooltip="Ya se realizo el servico de la unidad" href="/editar_mantenimineto/"+mantenimiento.numero_economico) 
+                          i(class="material-icons right") drive_eta
+        
+        script.
+              (function($){
+                $(function(){
+                $('.sidenav').sidenav();
+                $(".dropdown-trigger").dropdown();
+                });
+              })(jQuery);
+              $(document).ready(function(){
+                $('.datepicker').datepicker();
+              });
+              $(document).ready(function() {
+                var now = moment();
+                $("#aDate").text(now.format("lll"));
+              });
+              $(document).ready(function(){
+                $('.tooltipped').tooltip();
+              });
+              
+            
+              
+              
+          

@@ -1,0 +1,351 @@
+function buscarCotizacion(form){
+	cotizacion = form.cotizacion.value || "";
+	if(cotizacion != ""){
+		$.get('/../api/cotizaciones/'+cotizacion, function(data, status){
+			info = `
+					<div class="row">
+							<input id="cotizacionId" name="cotizacionId" type="text" class="validate color-text-blue" value="${data.id_cotizacion}" readonly style="visibility:hidden" ></input>
+					  <div class="input-field col s6 push-s1">
+						  <input id="cliente" type="text" class="validate color-text-blue" value="${data.nombre}" readonly ></input>
+						  <label class="active" style="color:blue"> Nombre del cliente </label>
+					  </div>
+					  <div class="input-field col s4 push-s1 pull-s1">
+					    <input id="destino" type="text" class="validate color-text-blue" value="${data.destino}" readonly ></input>
+					    <label class="active" for="destino" style="color:blue" > Lugar de destino </label>
+					  </div>
+					</div>
+					<div class="row">
+						<div class="input-field col s3 push-s1">
+						  <i class="material-icons prefix"> date_range </i>
+							<input type="text" class="validate" id="fecha_salida" value="${data.fecha_salida}" readonly></input>
+							<label class="active" for="fecha_salida" style="color:blue"> Fecha salida </label>
+						</div>
+						<div class="input-field col s4 push-s1 pull-s1">
+						  <input id="lugarSalida" type="text" class="validate color-text-blue" value="${data.origen}" readonly></input>
+							<label class="active" for="lugarSalida" style="color:blue"> Lugar salida </label>
+						</div>
+						<div class="input-field col s3 push-s1">
+							<i class="material-icons prefix"> access_time </i>
+							<input type="text" class="validate" id="hora_salida" value="${data.hora_salida}" readonly></input>
+							<label class="active" for="hora_salida" style="color:blue"> Hora salida </label>
+						</div>
+					</div>
+					<div class="row">
+					  <div class="input-field col s10 push-s1">
+						  <input id="itinerario" type="text" class="validate color-text-blue" value="${data.itinerario}" readonly></input>
+							<label class="active" for="itinerario" style="color:blue"> Itinerario </label>
+						</div>
+					</div>
+					<div class="row">
+					  <div class="input-field col s5 push-s1">
+						  <i class="material-icons prefix"> date_range </i>
+							<input type="text" class="validate" id="fecha_regreso" value="${data.fecha_regreso}" readonly></input>
+							<label class="active" for="fecha_regreso" style="color:blue"> Fecha regreso </label>
+						</div>
+						<div class="input-field col s5 push-s1 pull-s1">
+						  <input id="lugarSalida" type="text" class="validate color-text-blue" value="${data.origen}" readonly></input>
+							<label class="active" for="lugarSalida" style="color:blue"> Lugar regreso </label>
+					</div>
+					<div class="row">
+					  <div class="input-field col s10 push-s1 pull-s1">
+							<input id="adelanto" name="adelanto" type="text" class="validate color-text-blue" required></input>
+							<label for="adelanto" style="color:blue"> Cantidad de adelanto </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s3 push-s1">
+							<input type="text" class="validate" id="total" value="${data.importe}" readonly></input>
+							<label class="active" for="total" style="color:blue"> Precio total $ </label>
+						</div>
+						<div class="input-field col s4 push-s1 pull-s1">
+							<input id="anticipo" name="anticipo" type="text" onblur="findTotal()" class="validate color-text-blue" required></input>
+							<label for="anticipo" style="color:blue"> Anticipo $ </label>
+						</div>
+						<div class="input-field col s3 push-s1">
+							<input type="text" class="validate" id="saldo" name="saldo" require></input>
+							<label for="Saldo" style="color:blue"> Saldo $ </label>
+						</div>
+					</div>
+					`;
+				$('#dataInfo').html(info);
+		});
+
+	}else{
+		window.location('/');
+	}
+	return false;
+}
+
+function findTotal(){
+	var importe = parseInt(document.getElementById('total').value);
+	var anticipo = parseInt(document.getElementById('anticipo').value);
+	var total=0;
+
+	if(importe >= anticipo){
+		total=(importe - anticipo);
+		document.getElementById('saldo').value=total;
+	}else{
+		alert('El anticipo no puede se mayor que el precio total...'+anticipo +' '+importe);
+	}
+
+}
+
+function buscarContrato(form){
+	contrato = form.contrato.value || "";
+	if(contrato != ""){
+		$.get('/../api/contratos/'+contrato, function(data, status){
+
+			info = `
+					<div class="row">
+							<input id="contratoId" name="contratoId" type="text" class="validate color-text-blue" value="${data.info.id_contrato}" readonly style="visibility:hidden" ></input>
+					  <div class="input-field col s6 push-s1">
+						  <input id="cliente" name="cliente" type="text" class="validate color-text-blue" value="${data.info.nombre}" readonly ></input>
+						  <label class="active" style="color:blue"> Nombre del cliente </label>
+					  </div>
+					  <div class="input-field col s4 push-s1 pull-s1">
+					    <input id="destino" type="text" class="validate color-text-blue" value="${data.info.destino}" readonly ></input>
+					    <label class="active" for="destino" style="color:blue" > Lugar de destino </label>
+					  </div>
+					</div>
+					<div class="row">
+						<div class="input-field col s3 push-s1">
+						  <i class="material-icons prefix"> date_range </i>
+							<input type="text" class="validate" id="fecha_salida" value="${data.info.fecha_salida}" readonly></input>
+							<label class="active" for="fecha_salida" style="color:blue"> Fecha salida </label>
+						</div>
+						<div class="input-field col s4 push-s1 pull-s1">
+						  <input id="lugarSalida" type="text" class="validate color-text-blue" value="${data.info.salida}" readonly></input>
+							<label class="active" for="lugarSalida" style="color:blue"> Lugar salida </label>
+						</div>
+						<div class="input-field col s3 push-s1">
+							<i class="material-icons prefix"> access_time </i>
+							<input type="text" class="validate" id="hora_salida" value="${data.info.hora_salida}" readonly></input>
+							<label class="active" for="hora_salida" style="color:blue"> Hora salida </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s3 push-s1">
+						  <i class="material-icons prefix"> date_range </i>
+							<input type="text" class="validate" id="fecha_regreso" value="${data.info.fecha_regreso}" readonly></input>
+							<label class="active" for="fecha_regreso" style="color:blue"> Fecha regreso </label>
+						</div>
+						<div class="input-field col s4 push-s1 pull-s1">
+						  <input id="lugarRegreso" type="text" class="validate color-text-blue" value="${data.info.salida}" readonly></input>
+							<label class="active" for="lugarRegreso" style="color:blue"> Lugar regreso </label>
+						</div>
+						<div class="input-field col s3 push-s1">
+							<i class="material-icons prefix"> access_time </i>
+							<input type="text" class="validate" id="hora_regreso" value="${data.info.hora_regreso}" readonly></input>
+							<label class="active" for="hora_regreso" style="color:blue"> Hora regreso </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s3 push-s1">
+							<input id="importe" type="text" class="validate color-text-blue" value="${data.info.importe_restante}" readonly></input>
+							<label for="importe" style="color:blue" class="active"> Importe restante $</label>
+						</div>
+					</div>
+					`;
+				$('#dataInfo').html(info);
+		});
+		$.get('/../api/contratoUnidad/'+contrato, function(data, status){
+
+			innerHTML='';
+			data.forEach(function(unidad, index){
+				innerHTML+='<tr>';
+				innerHTML+=`<td>${unidad.id_contrato}</td>
+										<td>${unidad.tipo}</td>
+										<td>${unidad.numero_plazas}</td>
+										<td>${unidad.numero_unidades}</td>
+										<td id="unidades">
+										</td>
+										<td id="operadores">
+										</td>`;
+				innerHTML+='</tr>';
+
+				$('#info_unidades').html(innerHTML);
+			});
+		});
+
+
+	}else{
+		window.location('/');
+	}
+	return false;
+}
+
+$(document).ready(function(){
+ $('.tooltipped').tooltip();
+});
+
+function findContrato(form){
+	contrato = form.contrato.value || "";
+	if(contrato != "") {
+		$.get('/../api/findContrato/'+contrato, function(data, status) {
+			info = `
+					<div class="row">
+						<input id="contratoId" name="contratoId" type="text" class="validate color-text-blue" value="${data.info.contrato}" readonly style="visibility:hidden" ></input>
+						<div class="input-field col s4 push-s1">
+							<input type="text" class="validate" id="tipo_unidad" value="${data.info.tipo}" readonly></input>
+							<label class="active" for="tipo_unidad" style="color:blue">Tipo de unidad </label>
+						</div>
+						<div class="input-field col s3 push-s1 pull-s1">
+							<input id="marca" type="text" class="validate color-text-blue" value="${data.info.marca}" readonly></input>
+							<label class="active" for="marca" style="color:blue"> Marca </label>
+						</div>
+						<div class="input-field col s3 push-s1">
+							<input type="text" class="validate" id="modelo" value="${data.info.modelo}" readonly></input>
+							<label class="active" for="modelo" style="color:blue"> Modelo </label>
+						</div>
+					</div>
+					<div class="row">
+					  <div class="input-field col s5 push-s1">
+							<input type="text" class="validate" id="placas" value="${data.info.placas}" readonly></input>
+							<label class="active" for="placas" style="color:blue">No. de placas</label>
+						</div>
+						<div class="input-field col s5 push-s1 pull-s1">
+								<input id="no_economico" type="text" class="validate color-text-blue" value="${data.info.numero_economico}" readonly></input>
+								<label class="active" for="no_economico" style="color:blue"> No economico </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s10 push-s1">
+							<hr style="background: #31B404; height:3px">
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s8 push-s1 pull-s1">
+							<input type="text" class="validate" id="operador" value="${data.info.operador}" readonly></input>
+							<label class="active" for="operador" style="color:blue">Nombre del operador </label>
+						</div>
+						<div class="input-field col s2 push-s2 pull-s1" >
+							<button type="submit" class="col s1" style="padding-left:30px"> <i class="material-icons #11d61e right"> person_add </i> </button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s3 push-s1">
+							<input type="text" class="validate" id="noLicencia" value="${data.info.numero_licencia}" readonly></input>
+							<label class="active" for="noLicencia" style="color:blue"> No. licencia </label>
+						</div>
+						<div class="input-field col s3 push-s1 pull-s1">
+							<input id="tipoLicencia" type="text" class="validate color-text-blue" value="${data.info.tipo_licencia}" readonly></input>
+							<label class="active" for="tipoLicencia" style="color:blue"> Tipo de licencia </label>
+						</div>
+						<div class="input-field col s4 push-s1">
+							<i class="material-icons prefix"> data_range </i>
+							<input type="text" class="validate" id="vigencia" value="${data.info.vigencia_licencia}" readonly></input>
+							<label class="active" for="vigencia" style="color:blue"> Vigencia</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s10 push-s1">
+							<hr style="background: #31B404; height:3px">
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s3 push-s1">
+							<input type="text" class="validate" id="origen" value="${data.info.salida}" readonly></input>
+							<label class="active" for="origen" style="color:blue" > Origen </label>
+						</div>
+						<div class="input-field col s3 push-s1 pull-s1">
+							<input id="destino" type="text" class="validate color-text-blue" value="${data.info.destino}" readonly></input>
+							<label class="active" for="destino" style="color:blue"> Destino </label>
+						</div>
+						<div class="input-field col s2 push-s1">
+							<i class="material-icons prefix"> access_time </i>
+							<input type="text" class="validate" id="horasalida" value="${data.info.hora_salida}" readonly></input>
+							<label class="active" for="horasalida" style="color:blue; font-size:13px"> Hora de salida</label>
+						</div>
+						<div class="input-field col s2 push-s1">
+						  <i class="material-icons prefix"> access_time </i>
+						  <input type="text" class="validate" id="horallegada" value="${data.info.hora_regreso}" readonly></input>
+						  <label class="active" for="horallegada" style="color:blue; font-size:13px"> Hora de llegada</label>
+						</div>
+					</div>
+
+			`;
+			 $('#dataInfo').html(info);
+		});
+
+	}
+	return false;
+
+}
+
+function findOrdenContrato(form){
+	contrato = form.contrato.value || "";
+	if(contrato != "") {
+		$.get('/../api/OrdenContrato/'+contrato, function(data, status) {
+			info = `
+					<div class="row">
+							<input id="contratoId" name="contratoId" type="text" class="validate color-text-blue" value="${data.info.contrato}" readonly style="visibility:hidden" ></input>
+						<div class="input-field col s6 push-s1">
+							<input id="cliente" name="cliente" type="text" class="validate color-text-blue" value="${data.info.nombre}" readonly ></input>
+							<label class="active" style="color:blue"> Nombre del cliente </label>
+						</div>
+						<div class="input-field col s4 push-s1 pull-s1">
+							<input id="destino" type="text" class="validate color-text-blue" value="${data.info.telefono}" readonly ></input>
+							<label class="active" for="destino" style="color:blue" > Lugar de destino </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s3 push-s1">
+							<i class="material-icons prefix"> date_range </i>
+							<input type="text" class="validate" id="fecha_salida" value="${data.info.fecha_salida}" readonly></input>
+							<label class="active" for="fecha_salida" style="color:blue"> Fecha salida </label>
+						</div>
+						<div class="input-field col s4 push-s1 pull-s1">
+							<input id="lugarSalida" type="text" class="validate color-text-blue" value="${data.info.salida}" readonly></input>
+							<label class="active" for="lugarSalida" style="color:blue"> Lugar salida </label>
+						</div>
+						<div class="input-field col s3 push-s1">
+							<i class="material-icons prefix"> access_time </i>
+							<input type="text" class="validate" id="hora_salida" value="${data.info.hora_salida}" readonly></input>
+							<label class="active" for="hora_salida" style="color:blue"> Hora salida </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s3 push-s1">
+							<i class="material-icons prefix"> date_range </i>
+							<input type="text" class="validate" id="fecha_regreso" value="${data.info.fecha_regreso}" readonly></input>
+							<label class="active" for="fecha_regreso" style="color:blue"> Fecha regreso </label>
+						</div>
+						<div class="input-field col s4 push-s1 pull-s1">
+							<input id="lugarRegreso" type="text" class="validate color-text-blue" value="${data.info.salida}" readonly></input>
+							<label class="active" for="lugarRegreso" style="color:blue"> Lugar regreso </label>
+						</div>
+						<div class="input-field col s3 push-s1">
+							<i class="material-icons prefix"> access_time </i>
+							<input type="text" class="validate" id="hora_regreso" value="${data.info.hora_regreso}" readonly></input>
+							<label class="active" for="hora_regreso" style="color:blue"> Hora regreso </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s3 push-s1 pull-s1">
+							<input id="destino" type="text" class="validate color-text-blue" value="${data.info.destino}" readonly></input>
+							<label class="active" for="destino" style="color:blue"> Destino </label>
+						</div>
+						<div class="input-field col s7 push-s1">
+							<input id="itinerario" type="text" class="validate color-text-blue" value="${data.info.itinerario}" readonly></input>
+							<label class="active" for="itinerario" style="color:blue"> Itinerario</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s3 push-s1 pull-s1">
+							<input id="kmsalida" name="kmsalida" type="text" class="validate color-text-blue" value="${data.info.kilometraje_actual}"></input>
+							<label class="active" for="destino" style="color:blue"> Km. de salida	</label>
+						</div>
+						<div class="input-field col s7 push-s1">
+							<input id="itinerario" type="text" class="validate color-text-blue" value="${data.info.operador}" readonly></input>
+							<label for="itinerario" style="color:blue" class="active"> Operador</label>
+						</div>
+					</div>
+
+			`;
+			 $('#dataInfo').html(info);
+		});
+
+	}
+	return false;
+
+}

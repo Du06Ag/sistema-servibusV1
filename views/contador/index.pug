@@ -1,0 +1,104 @@
+doctype html
+html
+  head
+    title ServiBus Website
+    
+    script(src="javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="javascripts/materialize.js")
+    
+    link(rel="stylesheet" type="text/css" href="stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="stylesheets/materialize.css")
+    link(rel="stylesheet" type="text/css" href="fonts/iconfont/material-icons.css")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    
+  body
+      
+    block scripts_self
+      script(src="/../javascripts/infoReporte.js")
+      
+      div(class="z-depth-3 col s12 m10 l10 offset-l1 ")
+        div
+          div(class="row grey lighten-3")
+            div(class="col s1 push-s1 ")
+              ul(id="slide-out" class="sidenav light-blue darken-4")
+                li
+                  div(class="user-view")
+                    div(class="background green")
+                      img(src="")
+                    a(href="#user")
+                      img(class="circle" src="images/primera.jpg")
+                    a(href="#name")
+                      span(class="white-text name" style="font-size:20px") #{user_nombre}
+                    a(href="/logout/")
+                      span(style="color: #ed1b24; font-weight:bold") Cerrar sesion
+                li
+                  a(class="white-text" href="/reporte_rendimiento") Reporte de rendimiento y control
+                li
+                  a(class="white-text" href="/indexConta") Ver reportes de rendimiento y control
+                li
+                  a(href="/bitacora_manteni" class="white-text") Bitacora de mantenimiento
+              a(href="#" data-target="slide-out" class="sidenav-trigger")
+                i(class="material-icons #01579b" style="font-size: 40px; padding-top:30px" ) menu    
+            div(class="col s7 push-s2")
+                img(src="images/mapa.png" width="120" height="70" style="padding-top: 10px")
+                h4(class="right green-text darken-4" style="padding-bottom:10px; padding-left:20px") ServiBus Servicios Turisticos Terrestres 
+      block content
+        .modal#detalle_reporte(style="width:80%; height: 100%")
+          .modal-content#content-reporte
+            .modal.footer
+              a.modal-action.modal-close.waves-effect.waves-green.btn-flat(href="#") Aceptar
+        
+        div(class="container")
+                    
+          div(class="row")
+            div(class="col s12")
+              h4.center.bold Reportes de Rendimineto y Control de Viajes
+              br
+            label(for="aDate" id="aDate" style="font-size: 20px; color: blue; text-bold; font-weight:bold" class="form-control col s3 push-s9")
+            div(class="col l12 m12 s12")            
+              table(class="highlight z-depth-3 centered responsive-table")
+                thead
+                  tr
+                    th Unidad
+                    th Operador
+                    th Destino
+                    th Itinerario
+                    th Importe
+                    th Gastos
+                    th Utilidad
+                    th 
+                tbody(id="body_usuarios")
+                  each reporte in reportes
+                    tr(class="row")
+                      td=reporte.unidad
+                      td=reporte.operador
+                      td=reporte.destino
+                      td=reporte.itinerario
+                      td='$ '+reporte.importe
+                      td='$ '+reporte.gastos_total
+                      td='$ '+reporte.utilidad
+                      td 
+                        a(style="padding:0px;" href="#" onclick="modalDetalleReportes("+reporte.id_contrato+");") Ver detalles
+        
+        script.
+              (function($){
+                $(function(){
+                $('.sidenav').sidenav();
+                $(".dropdown-trigger").dropdown();
+                });
+              })(jQuery);
+              $(document).ready(function(){
+                $('.datepicker').datepicker();
+              });
+              $(document).ready(function() {
+                var now = moment();
+                $("#aDate").text(now.format("lll"));
+              });
+              $(document).ready(function(){
+                $('.modal').modal();
+              });
+            
+              
+              
+          

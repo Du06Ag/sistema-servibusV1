@@ -1,0 +1,108 @@
+doctype html
+html
+  head
+    title ServiBus Website
+    
+    script(src="javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="javascripts/materialize.js")
+    script(type="text/javascript" src="javascripts/moments.js")
+    
+    link(rel="stylesheet" type="text/css" href="stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="stylesheets/materialize.css")
+    link(rel="stylesheet" type="text/css" href="fonts/iconfont/material-icons.css")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    
+  body
+        ul(id="dropdown1" class="dropdown-content grey lighten-3")
+          li
+            a(href="/nuevo_empleado" class="green-text" style="font-weight:bold") Nuevo empleado
+          li
+            a(href="/ver_empleados" class="green-text" style="font-weight:bold") Ver empleados
+            
+        ul(id="dropdown2" class="dropdown-content grey lighten-3")
+          li
+            a(href="/registrar_unidad" class="green-text" style="font-weight:bold") Nueva unidad
+          li
+            a(href="/ver_unidades" class="green-text" style="font-weight:bold") Ver Unidades
+        
+        div(class="z-depth-3 col s12 m10 l10 offset-l1 ")
+          div
+            div(class="row grey lighten-3")
+              div(class="col s1 push-s1 ")
+                ul(id="slide-out" class="sidenav light-blue darken-4")
+                  li
+                    div(class="user-view")
+                      div(class="background green")
+                        img(src="")
+                      a(href="#user")
+                        img(class="circle" src="images/couple.jpg")
+                      a(href="#name")
+                        span(class="white-text name" style="font-size:20px") #{user_nombre}
+                        a(href="/logout/")
+                          span(style="color: #ed1b24; font-weight:bold") Cerrar sesion
+                  li
+                    a(class="white-text" href="/index") Usuarios del sistema
+                  li
+                    a(class="dropdown-trigger white-text" href="#!" data-target="dropdown1") Empleados
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(href="#!" class="dropdown-trigger white-text" data-target="dropdown2") Unidades
+                      i(class="material-icons right") arrow_drop_down
+                a(href="#" data-target="slide-out" class="sidenav-trigger")
+                  i(class="material-icons #01579b" style="font-size: 40px; padding-top:30px" ) menu    
+              div(class="col s7 push-s2")
+                  img(src="images/mapa.png" width="120" height="70" style="padding-top: 10px")
+                  h4(class="right green-text darken-4" style="padding-bottom:10px; padding-left:20px") ServiBus Servicios Turisticos Terrestres 
+        
+        div(class="container")
+          div(class="row padding-top padding-bottom")
+            div(clas="col s12 m10 l10 offset-l1")
+              h4.center.bold Registrar unidad
+              label(for="aDate" id="aDate" style="font-size: 20px; color: blue; text-bold; font-weight:bold" class="form-control col s3 push-s9")
+              div(class="row")
+                form(class="col s10 push-s1" method="post" action="/agregar_unidad" style="")
+                  div(class="row")
+                    div(class="input-field col s6 push-s3 pull-s3")
+                      input(id="noEconomico" name="noEconomico" type="text" class="validate color-text-blue" required)
+                      label(for="noEconomico" style="color:blue") Numero economico
+                  div(class="row")
+                    div(class="input-field col s6 push-s3 pull-s3")
+                      input(id="noPlacas" name="noPlacas" type="text" class="validate color-text-blue" required)
+                      label(for="noPlacas" style="color:blue") Numero de placas
+                  div(class="row")
+                    div(class="input-field col s6 push-s3 pull-s3")
+                      input(id="kmActual" name="kmActual" type="text" class="validate color-text-blue" required)
+                      label(for="kmActual" style="color:blue") kilometraje actual
+                  div(class="row")
+                    div(class="input-field col s6 push-s3 pull-s3")
+                      select(name="tipo" required)
+                        each unidad in data.unidades
+                          option(value=unidad.id_tipo_unidad)=unidad.modelo_unidad +' '+unidad.numero_plazas +' plazas'
+                      label(for="tipo" style="color:blue") Tipo de unidad
+                  div(class="row")
+                    div(class="col s12")
+                      button(class="btn waves-effect waves-light col s6 push-s3" type="submit" name="registrar") Registrar unidad
+                             i(class="material-icons right") send      
+        
+        script.
+              (function($){
+                $(function(){
+                $('.sidenav').sidenav();
+                $(".dropdown-trigger").dropdown();
+                });
+              })(jQuery);
+              $(document).ready(function(){
+                $('.datepicker').datepicker();
+              });
+              $(document).ready(function(){
+                $('select').formSelect();
+              });
+              $(document).ready(function() {
+                var now = moment();
+                $("#aDate").text(now.format("lll"));
+              });
+            
+              
+              
+          

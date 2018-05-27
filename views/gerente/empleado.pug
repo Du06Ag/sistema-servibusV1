@@ -1,0 +1,127 @@
+doctype html
+html
+  head
+    title ServiBus Website
+    
+    script(src="/../javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="/../javascripts/materialize.js")
+    script(type="text/javascript" src="/../javascripts/moments.js")
+    //-script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+    
+    //-link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    
+    link(rel="stylesheet" type="text/css" href="/../stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="/../stylesheets/materialize.css")      
+    link(rel="stylesheet" type="text/css" href="/../fonts/iconfont/material-icons.css")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")  
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    
+  body
+    ul(id="dropdown1" class="dropdown-content grey lighten-3")
+        li
+          a(href="/nuevo_empleado" class="green-text" style="font-weight:bold") Nuevo empleado
+        li
+          a(href="/ver_empleados" class="green-text" style="font-weight:bold") Ver empleados
+          
+    ul(id="dropdown2" class="dropdown-content grey lighten-3")
+        li
+          a(href="/registrar_unidad" class="green-text" style="font-weight:bold") Nueva unidad
+        li
+          a(href="/ver_unidades" class="green-text" style="font-weight:bold") Ver Unidades
+        
+    div(class="z-depth-3 col s12 m10 l10 offset-l1 ")
+        div
+          div(class="row grey lighten-3")
+            div(class="col s1 push-s1 ")
+              ul(id="slide-out" class="sidenav light-blue darken-4")
+                li
+                  div(class="user-view")
+                    div(class="background green")
+                      img(src="")
+                    a(href="#user")
+                      img(class="circle" src="/../images/couple.jpg")
+                    a(href="#name")
+                      span(class="white-text name" style="font-size:20px") #{user_nombre}
+                    a(href="/logout/")
+                      span(style="color: #ed1b24; font-weight:bold") Cerrar sesion
+                li
+                  a(class="white-text" href="/index") Usuarios del sistema
+                li
+                  a(class="dropdown-trigger white-text" href="#!" data-target="dropdown1") Empleados
+                    i(class="material-icons right") arrow_drop_down
+                li
+                  a(href="#!" class="dropdown-trigger white-text" data-target="dropdown2") Unidades
+                    i(class="material-icons right") arrow_drop_down
+              a(href="#" data-target="slide-out" class="sidenav-trigger")
+                i(class="material-icons #01579b" style="font-size: 40px; padding-top:30px" ) menu    
+            div(class="col s7 push-s2")
+                img(src="images/mapa.png" width="120" height="70" style="padding-top: 10px")
+                h4(class="right green-text darken-4" style="padding-bottom:10px; padding-left:20px") ServiBus Servicios Turisticos Terrestres   
+      
+    script(src="/../javascripts/jquery.validate.min.js")
+    script(src="/../javascripts/seleccionar_empleado.js")
+    style().
+      div.error {
+        color: red;
+        margin-top: -15px;
+        padding: 0;
+        font-size: 0.9em;
+        padding-left: 3.5em;
+      }
+    div(class="container margin-top z-depth-3 ")
+      if(messages)
+        h1=messages
+      .row
+        h5(class="condensed light center padding-top") Agregar un nuevo usuario al sistema
+        form(class="col l10 offset-l1 m12 s12 margin-top" action="/empleado" method="post" id="formValidate")
+          .row
+            div(class="input-field col s12 m12 l8 offset-12 push-l2")
+              i(class="material-icons prefix") account_circle
+              input(name="nombre" type="text" class="validate" required)
+              label(for="nombre") Nombre de usuario
+            div(class="input-field col s12 m12 l8 offset-l2")
+              i(class="material-icons prefix") lock
+              input(name="password" type="password" class="validate" required)
+              label(for="password") Contraseña  
+                
+            div(class="input-field col s12 m12 l1 offset-l2 margin-top")
+              a(class="btn-floating btn-tiny waves-effect waves-light green btn modal-trigger" data-target="seleccionar_empleado")
+                i(class="material-icons" ) add
+            div(class="input-field col s12 m12 l2 margin-top")
+              input(name="id_empleado" id="id_empleado" class="validate" type="text" required readonly placeholder="ID empleado")
+              label(for="id_empleado") ID empleado
+            div(class="input-field col s12 m12 l5 margin-top")
+              input(name ="rol" id="rol" class="validate" type="text" require readonly placeholder="Puesto")
+              label(for="rol") Puesto
+            div(class="input-field col s12 m12 l2 offset-l8")
+              button(class="btn waves-effect waves-light green right" type="submit") Registrar
+                i(class="material-icons left") send
+      
+      div(id="seleccionar_empleado" class="modal modal-fixed-footer")
+        div(class="modal-content")
+          h4 Buscar empleado
+          form(onsubmit="return getEmpleado(this);")
+            div(class="input-field z-depth-3")
+              input(id="search" name="num_empleado" type="search" required="true" placeholder="Ingrese el numero de empleado:")
+              label(class="label-icon" for="search")
+                i(class="material-icons left") search
+              i(class="material-icons") close
+            
+          ul(class="collapsible" data-collapsible="accordion" id="empleados_list")
+        div(class="modal-footer")
+          a(class="modal-close waves-effect waves-green btn-flat" data-dismiss="modal") cerrar 
+    
+    script.
+      (function($){
+        $(function(){
+        $('.sidenav').sidenav();
+        $(".dropdown-trigger").dropdown();
+        });
+      })(jQuery);
+      $(document).ready(function(){
+        $('.datepicker').datepicker();
+      });
+      $(document).ready(function(){
+        $('.modal').modal();
+      });
+    

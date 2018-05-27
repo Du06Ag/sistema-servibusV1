@@ -1,0 +1,170 @@
+doctype html
+html
+  head
+    title ServiBus Website
+    
+    script(src="javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="javascripts/materialize.js")
+    script(type="text/javascript" src="javascripts/moments.js")
+    script(src="javascripts/vanilla-notify.js")
+    
+    link(rel="stylesheet" type="text/css" href="stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="stylesheets/materialize.css")
+    link(rel="stylesheet" type="text/css" href="fonts/iconfont/material-icons.css")
+    link(rel="stylesheet" type="text/css" href="stylesheets/vanilla-notify.css")
+    
+    script(src="javascripts/common.js")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    
+  body
+        ul(id="dropdown1" class="dropdown-content grey lighten-3")
+          li()
+            a(href="/nuevo_empleado" class="green-text" style="font-weight:bold") Nuevo empleado
+          li
+            a(href="/ver_empleados" class="green-text" style="font-weight:bold") Ver empleados
+            
+        ul(id="dropdown2" class="dropdown-content grey lighten-3")
+          li
+            a(href="/registrar_unidad" class="green-text" style="font-weight:bold") Nueva unidad
+          li
+            a(href="/ver_unidades" class="green-text" style="font-weight:bold") Ver Unidades
+        
+        div(class="z-depth-3 col s12 m10 l10 offset-l1 ")
+          div
+            div(class="row grey lighten-3")
+              div(class="col s1 push-s1 ")
+                ul(id="slide-out" class="sidenav light-blue darken-4")
+                  li
+                    div(class="user-view")
+                      div(class="background green")
+                        img(src="")
+                      a(href="#user")
+                        img(class="circle" src="images/primera.jpg")
+                      a(href="#name")
+                        span(class="white-text name" style="font-size:20px") #{user_nombre}
+                        a(href="/logout/")
+                          span(style="color: #ed1b24; font-weight:bold") Cerrar sesion
+                  li
+                    a(class="white-text" href="/index") Usuarios del sistema
+                  li
+                    a(class="dropdown-trigger white-text" href="#!" data-target="dropdown1") Empleados
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(href="#!" class="dropdown-trigger white-text" data-target="dropdown2") Unidades
+                      i(class="material-icons right") arrow_drop_down
+                a(href="#" data-target="slide-out" class="sidenav-trigger")
+                  i(class="material-icons #01579b" style="font-size: 40px; padding-top:30px" ) menu    
+              div(class="col s7 push-s2")
+                  img(src="images/mapa.png" width="120" height="70" style="padding-top: 10px")
+                  h4(class="right green-text darken-4" style="padding-bottom:10px; padding-left:20px") ServiBus Servicios Turisticos Terrestres 
+        
+        div(class="container")
+          br
+          div(class="row padding-top padding-bottom")
+            div(class="z-depth-0 col s12 m10 l10 offset-l1")
+              h4.center.bold Editar empleado
+              label(for="aDate" id="aDate" style="font-size: 20px; color: blue; text-bold; font-weight:bold" class="form-control col s4 push-s8")              
+              div(class="row")
+                form(class="col s10 push-s1" method="post" action="/empleado/editar/"+data.empleado.id_empleado+"?_method=PUT" )
+                  div(class="row")
+                    div(class="input-field col s6")
+                        input(name="id_empleado" type="text" value=data.empleado.id_empleado readonly)
+                        label(for="id_empleado" style="color:blue") Numero de empleado  
+                    div(class="input-field col s6")
+                      input(id="nombre" name="nombre" type="text" class="validate color-text-blue" value=data.empleado.nombre)
+                      label(for="nombre" style="color:blue") Nombre                    
+                  div(class="row")
+                    div(class="input-field col s6")
+                      input(type="text" class="validate" id="ap_paterno" name="ap_paterno" value=data.empleado.ap_paterno)
+                      label(for="ap_paterno" style="color:blue") Apellido paterno
+                    div(class="input-field col s6")
+                      input(id="ap_materno" name="ap_materno" type="text" class="validate" value=data.empleado.ap_materno)
+                      label(for="ap_materno" style="color:blue") Apellido materno
+                  div(class="row")
+                    div(class="input-field col s6")
+                      input(name="telefono" id="telefono" type="text" class="validate" value=data.empleado.telefono)
+                      label(for="telefono" style="color:blue") Telefono
+                    div(class="input-field col s6")
+                      input(name="correo" id="correo" type="text" class="validate" value=data.empleado.correo_electronico)
+                      label(for="correo" style="color:blue") Correo electronico
+                    div(class="row")
+                      div(class="input-field col s3")
+                        input(id="calle" name="calle" type="text" class="validate" value=data.empleado.calle)
+                        label(for="calle" style="color:blue") Calle
+                      div(class="input-field col s3")
+                        input(id="num_interior" name="num_interior" type="text" class="validate" value=data.empleado.numero_interior)
+                        label(for="num_interior" style="color:blue") Numero Interior
+                      div(class="input-field col s3")
+                        input(id="colonia" name="colonia" type="text" value=data.empleado.colonia)
+                        label(for="colonia" style="color:blue") Colonia
+                      div(class="input-field col s3")
+                        input(id="codigo_postal" name="codigo_postal" type="text" value=data.empleado.codigo_postal)
+                        label(for="codigo_postal" style="color:blue") Codigo Postal
+                    div(class="row")
+                      div(class="input-field col s3")
+                        select(name="sexo" required)
+                          option(value="F") Femenino
+                          option(value="M") Masculino
+                        label(for="sexo" style="color:blue") Sexo
+                      div(class="input-field col s3")
+                        select(name="estado_civil" required)
+                          option(value="soltero") Soltero
+                          option(value="casado") Casado
+                          option(value="divorciado") Divorciado
+                          option(value="viudo") Viudo
+                        label(for="estado_civil" style="color:blue") Estado civil
+                      div(class="input-field col s3")
+                        i(class="material-icons prefix") date_range
+                        input(type="text" class="datepicker" id="fecha_naci" name="fecha_naci" value=data.empleado.fecha_nacimiento)
+                        label(for="fecha_naci" style="color:blue; font-size: 12px") Fecha de nacimiento
+                      div(class="input-field col s3 " id="puest")
+                        input(id="puesto" name="puesto" type="text" value=data.empleado.puesto readonly)
+                        label(for="puesto" style="color:blue") Puesto
+                    
+                    div(class="row" id="hiddenDiv" style="display:none")
+                      div(class="input-field col s6")
+                        input(type="text" class="validate" id="tipo_pay" name="tipo_pay" value=data.empleado.tipo_pago)
+                        label(for="tipo_pay" style="color:blue") Tipo de pago
+                      div(class="input-field col s6")
+                        input(id="num_licencia" name="num_licencia" type="text" class="validate" value=data.empleado.numero_licencia)
+                        label(for="num_licencia" style="color:blue") Nuero de licencia
+                      div(class="input-field col s6")
+                        input(type="text" class="validate" id="tipo_lic" name="tipo_lic" value=data.empleado.tipo_licencia)
+                        label(for="tipo_lic" style="color:blue") Tipo de licencia
+                      div(class="input-field col s6")
+                        i(class="material-icons prefix") date_range
+                        input(type="text" class="datepicker" format="yyyy-mm-dd" id="vigencia" name="vigencia" value=data.empleado.vigencia_licencia)
+                        label(for="vigencia" style="color:blue; font-size: 12px") Vigencia de licencia  
+                        
+                  div(class="row")
+                    div(class="col s12")
+                      button(class="btn waves-effect waves-light col s3 push-s9" type="submit" name="registrar") Actualizar
+                        i(class="material-icons right") send  
+        script.
+              (function($){
+                $(function(){
+                $('.sidenav').sidenav();
+                $(".dropdown-trigger").dropdown();
+                });
+              })(jQuery);
+              $(document).ready(function(){
+                $('select').formSelect();
+              });
+              $(document).ready(function(){
+                $('.datepicker').datepicker();
+              });
+              $(document).ready(function() {
+                var now = moment();
+                $("#aDate").text(now.format("lll"));
+              });
+              if(document.getElementById('puesto').value == 'Operador'){ 
+                document.getElementById('hiddenDiv').style.display='block';
+              }
+                    
+  
+    
+    
+      
+              
+          

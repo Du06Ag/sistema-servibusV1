@@ -1,0 +1,39 @@
+.log-in{
+  margin: auto;
+  max-width: 350px;
+  background: #30B315;
+  padding: 40px;
+  color: white;
+  font-family: sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+
+input[type=text], input[type=password]{
+  width: 100%;
+  padding: 10px;
+  margin: 10px, 0;
+}
+
+input[type=submit]{
+  width: 49%;
+  padding: 15px;
+  margin-top: 30px;
+  margin-left: 100px;
+  background: #5454d8;
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  box-shadow: #4d3263 -1px 1px, #4d3263 -2px 2px, #4d3263 -3px 3px,
+  #4d3263 -4px 4px, #4d3263 -5px 5px, #4d3263 -6px 6px;
+}
+
+@media screen and (max-width:600px) {
+  input[type=submit]{
+    width: 100%;
+  }
+}
