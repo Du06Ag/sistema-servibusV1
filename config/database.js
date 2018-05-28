@@ -1,9 +1,9 @@
 // configuracion de la base de datos
 const mysql = require('mysql');
 module.exports = mysql.createConnection({
-	host: '127.0.0.1',
-	user: 'root',
-	password: 'duky',
-	database: 'sistema_servibus_test',
+	host: 'bfhpwlqpx-mysql.services.clever-cloud.com',
+	user: 'uca3izh26hwoieqm',
+	password: 'Hrj2jbNXGnICB9u9nZe',
+	database: 'bfhpwlqpx',
 	port: 3306
 });
