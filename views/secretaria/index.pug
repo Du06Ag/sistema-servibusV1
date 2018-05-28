@@ -1,0 +1,130 @@
+doctype html
+html
+  head
+    title ServiBus Website
+    
+    script(src="javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="javascripts/materialize.js")
+    
+    link(rel="stylesheet" type="text/css" href="stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="stylesheets/materialize.css")
+    link(rel="stylesheet" type="text/css" href="fonts/iconfont/material-icons.css")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    
+  body
+        ul(id="dropdown1" class="dropdown-content grey lighten-3")
+          li
+            a(href="/generar_contrato" class="green-text" style="font-weight:bold") Generar contrato
+          li
+            a(href="/indexSecre" class="green-text" style="font-weight:bold") Ver contratos
+            
+        ul(id="dropdown2" class="dropdown-content grey lighten-3")
+          li
+            a(href="/generar_bitacora" class="green-text" style="font-weight:bold") Generar bitacora de viaje
+          li
+            a(href="/ver_bitacoras" class="green-text" style="font-weight:bold") Ver bitacoras de viaje
+        
+        ul(id="dropdown3" class="dropdown-content grey lighten-3")
+          li
+            a(href="/generar_orden" class="green-text" style="font-weight:bold") Generar orden de servicio
+          li
+            a(href="/ver_ordenServicio" class="green-text" style="font-weight:bold") Ver orden de servicio
+          
+        ul(id="dropdown4" class="dropdown-content grey lighten-3")
+          li
+            a(href="/agendar_servicio" class="green-text" style="font-weight:bold") Agendar servicio
+          li
+            a(href="/ver_agenda" class="green-text" style="font-weight:bold") Ver agenda
+        
+        div(class="z-depth-3 col s12 m10 l10 offset-l1 ")
+          div
+            div(class="row grey lighten-3")
+              div(class="col s1 push-s1 ")
+                ul(id="slide-out" class="sidenav light-blue darken-4")
+                  li
+                    div(class="user-view")
+                      div(class="background green")
+                        img(src="")
+                      a(href="#user")
+                        img(class="circle" src="images/media.jpg")
+                      a(href="#name")
+                        span(class="white-text name" style="font-size:20px") #{user_nombre}
+                      a(href="/logout/")
+                        span(style="color: #ed1b24; font-weight:bold") Cerrar sesion
+                  li
+                    a(class="dropdown-trigger white-text" href="#!" data-target="dropdown1") Contrato
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(href="#!" class="dropdown-trigger white-text" data-target="dropdown2") Bitacora de viaje
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(class="dropdown-trigger white-text" href="#!" data-target="dropdown3") Orden de servicio
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(href="#!" class="dropdown-trigger white-text" data-target="dropdown4") Agenda
+                      i(class="material-icons right") arrow_drop_down
+                a(href="#" data-target="slide-out" class="sidenav-trigger")
+                  i(class="material-icons #01579b" style="font-size: 40px; padding-top:30px" ) menu    
+              div(class="col s7 push-s2")
+                  img(src="images/mapa.png" width="120" height="70" style="padding-top: 10px")
+                  h4(class="right green-text darken-4" style="padding-bottom:10px; padding-left:20px") ServiBus Servicios Turisticos Terrestres 
+        
+        div(clas="container")
+          div(class="row")
+            div(class="col s12")
+              h4.center.bold Contratos registrados            
+            div(class="col s12 m10 l10 offset-l1")
+              div(class="col s3 push-s9")
+                each sinAgenda in data.sinAgendar
+                  span(class="badge red white-text" data-badge-caption="Contratos sin agendar")=sinAgenda.sin_agendar
+              br
+              br
+              table(class="highlight z-depth-3 centered responsive-table")
+                thead
+                  tr
+                    th ID contrato
+                    th Fecha contrato
+                    th Anticipo
+                    th Importe restante
+                    th Importe total
+                    th Pago
+                    th No. de cotizacion
+                    th
+                tbody(id="rows_reportes")
+                  each contratos in contrato
+                    tr
+                      -color = "red darken-1";
+                      if contratos.estado != "Sin agendar" 
+                        -color = 'grey lighten-3'
+                      td=contratos.id_contrato        
+                      td=contratos.fecha_contrato
+                      td=contratos.anticipo_numero
+                      td=contratos.importe_restante
+                      td=contratos.importe
+                      td=contratos.estatus
+                      td=contratos.id_cotizacion
+                      td(align="center" valign="center")
+                        a(class="tooltipped" data-position="top" data-tooltip="Editar contrato" href="/editar_contrato"+contratos.id_contrato) 
+                          i(class="material-icons right") edit
+                        a.margin-lados.tooltipped(data-position="top" data-delay="50" data-tooltip="Imprimir contrato"  target="_blank" href=`/contrato/pdf/${contratos.id_contrato}`)
+                          i.material-icons picture_as_pdf
+                      td(class=color)=contratos.estado
+                      
+        script.
+              (function($){
+                $(function(){
+                $('.sidenav').sidenav();
+                $(".dropdown-trigger").dropdown();
+                });
+              })(jQuery);
+              $(document).ready(function(){
+                $('.datepicker').datepicker();
+              });
+              $(document).ready(function(){
+                $('.tooltipped').tooltip();
+              });
+            
+              
+              
+          

@@ -1,0 +1,164 @@
+doctype html
+html
+  head
+    title ServiBus Website
+    
+    script(src="javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="javascripts/materialize.js")
+    script(type="text/javascript" src="javascripts/moments.js")
+    script(src="javascripts/indexSecretaria.js")
+    
+    link(rel="stylesheet" type="text/css" href="stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="stylesheets/materialize.css")
+    link(rel="stylesheet" type="text/css" href="fonts/iconfont/material-icons.css")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    
+  body
+        ul(id="dropdown1" class="dropdown-content grey lighten-3")
+          li
+            a(href="/generar_contrato" class="green-text" style="font-weight:bold") Generar contrato
+          li
+            a(href="/indexSecre" class="green-text" style="font-weight:bold") Ver contratos
+            
+        ul(id="dropdown2" class="dropdown-content grey lighten-3")
+          li
+            a(href="/generar_bitacora" class="green-text" style="font-weight:bold") Generar bitacora de viaje
+          li
+            a(href="/ver_bitacoras" class="green-text" style="font-weight:bold") Ver bitacoras de viaje
+        
+        ul(id="dropdown3" class="dropdown-content grey lighten-3")
+          li
+            a(href="/generar_orden" class="green-text" style="font-weight:bold") Generar orden de servicio
+          li
+            a(href="/ver_ordenServicio" class="green-text" style="font-weight:bold") Ver orden de servicio
+          
+        ul(id="dropdown4" class="dropdown-content grey lighten-3")
+          li
+            a(href="/agendar_servicio" class="green-text" style="font-weight:bold") Agendar servicio
+          li
+            a(href="/ver_agenda" class="green-text" style="font-weight:bold") Ver agenda
+        
+        div(class="z-depth-3 col s12 m10 l10 offset-l1 ")
+          div
+            div(class="row grey lighten-3")
+              div(class="col s1 push-s1 ")
+                ul(id="slide-out" class="sidenav light-blue darken-4")
+                  li
+                    div(class="user-view")
+                      div(class="background green")
+                        img(src="")
+                      a(href="#user")
+                        img(class="circle" src="images/media.jpg")
+                      a(href="#name")
+                        span(class="white-text name" style="font-size:20px") #{user_nombre}
+                        a(href="/logout/")
+                          span(style="color: #ed1b24; font-weight:bold") Cerrar sesion
+                  li
+                    a(class="dropdown-trigger white-text" href="#!" data-target="dropdown1") Contrato
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(href="#!" class="dropdown-trigger white-text" data-target="dropdown2") Bitacora de viaje
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(class="dropdown-trigger white-text" href="#!" data-target="dropdown3") Orden de servicio
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(href="#!" class="dropdown-trigger white-text" data-target="dropdown4") Agenda
+                      i(class="material-icons right") arrow_drop_down
+                a(href="#" data-target="slide-out" class="sidenav-trigger")
+                  i(class="material-icons #01579b" style="font-size: 40px; padding-top:30px" ) menu    
+              div(class="col s7 push-s2")
+                  img(src="images/mapa.png" width="120" height="70" style="padding-top: 10px")
+                  h4(class="right green-text darken-4" style="padding-bottom:10px; padding-left:20px") ServiBus Servicios Turisticos Terrestres 
+        
+        div(class="container")
+          div(class="row")
+            div(clas="col l10 m12 s12 offset-l1")
+              h4.center.bold Editar contrato
+          div(class="col l12 m12 s12")
+            form(method="post" action="/update/contrato/"+data.contrato.id_contrato+"?_method=PUT")
+              div(class="row")
+                label(for="aDate" id="aDate" style="font-size: 20px; color: blue; text-bold; font-weight:bold" class="form-control col s3 push-s9")
+              div(id="dataInfo")  
+                div(class="row")
+                  div(class="input-field col s6 push-s1")
+                    input(id="cliente" type="text" class="validate color-text-blue" required value=data.contrato.nombre readonly)
+                    label(for="cliente" style="color:blue") Nombre del cliente
+                  div(class="input-field col s4 push-s1 pull-s1")
+                    input(id="destino" type="text" class="validate color-text-blue" required value=data.contrato.destino readonly)
+                    label(for="destino" style="color:blue") Lugar de destino
+                div(class="row")
+                  div(class="input-field col s3 push-s1")
+                    i(class="material-icons prefix") date_range
+                    input(type="text" class="validate" id="fecha_salida" value=data.contrato.fecha_salida readonly)
+                    label(for="fecha_salida" style="color:blue") Fecha salida
+                  div(class="input-field col s4 push-s1 pull-s1")
+                    input(id="lugarSalida" type="text" class="validate color-text-blue" required value=data.contrato.salida)
+                    label(for="lugarSalida" style="color:blue") Lugar de salida
+                  div(class="input-field col s3 push-s1")
+                    i(class="material-icons prefix") access_time
+                    input(type="text" class="validate" id="hora_salida" value=data.contrato.hora_salida readonly)
+                    label(for="hora_salida" style="color:blue") Hora salida
+                div(class="row")
+                    div(class="input-field col s10 push-s1")
+                      input(id="itinerario" type="text" class="validate color-text-blue" required value=data.contrato.itinerario readonly)
+                      label(for="itinerario" style="color:blue") Itinerario
+                div(class="row")
+                  div(class="input-field col s5 push-s1")
+                    i(class="material-icons prefix") date_range
+                    input(type="text" class="validate" id="fecha_regreso" value=data.contrato.fecha_regreso readonly)
+                    label(for="fecha_regreso" style="color:blue") Fecha regreso
+                  div(class="input-field col s5 push-s1 pull-s1")
+                    input(id="lugarSalida" type="text" class="validate color-text-blue" required value=data.contrato.regreso readonly)
+                    label(for="lugarSalida" style="color:blue") Lugar de regreso
+                div(class="row")
+                  div(class="input-field col s10 push-s1 pull-s1")
+                    input(id="adelanto" name="adelanto" type="text" class="validate color-text-blue" required value=data.contrato.anticipo_letra)
+                    label(for="adelanto" style="color:blue") Cantidad de adelanto
+                div(class="row")
+                  div(class="input-field col s3 push-s1")
+                    input(type="text" class="validate" id="total" value=data.contrato.importe readonly)
+                    label(for="total" style="color:blue") Precio total $
+                  div(class="input-field col s4 push-s1 pull-s1")
+                    input(id="anticipo" name="anticipo" type="text" class="validate color-text-blue" onblur="findTotal()" required value=data.contrato.anticipo_numero)
+                    label(for="anticipo" style="color:blue") Anticipo $
+                  div(class="input-field col s3 push-s1")
+                    input(type="text" class="validate" id="saldo" name="saldo" value=data.contrato.importe_restante)
+                    label(for="Saldo" style="color:blue") Saldo $
+              div(class="row")
+                div(class="col s12")
+                  button(class="btn waves-effect waves-light col s3 push-s8 pull-s1" type="submit" name="generar") Actualizar contrato
+                         i(class="material-icons right") send
+        
+        script.
+              (function($){
+                $(function(){
+                $('.sidenav').sidenav();
+                $(".dropdown-trigger").dropdown();
+                });
+              })(jQuery);
+              $(document).ready(function(){
+                $('.datepicker').datepicker();
+              });
+              $(document).ready(function() {
+                var now = moment();
+                $("#aDate").text(now.format("lll"));
+              });
+              function findTotal(){
+              	var importe = parseInt(document.getElementById('total').value);
+              	var anticipo = parseInt(document.getElementById('anticipo').value);
+              	var total=0;
+              
+              	if(importe >= anticipo){
+              		total=(importe - anticipo);
+              		document.getElementById('saldo').value=total;
+              	}else{
+              		alert('El anticipo no puede se mayor que el precio total...'+anticipo +' '+importe);
+              	}
+              
+              }
+            
+              
+              
+          

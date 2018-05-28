@@ -1,0 +1,178 @@
+doctype html
+html
+  head
+    title ServiBus Website
+    
+    script(src="javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="javascripts/materialize.js")
+    script(type="text/javascript" src="javascripts/moments.js")
+    script(src="javascripts/indexSecretaria.js")
+    
+    link(rel="stylesheet" type="text/css" href="stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="stylesheets/materialize.css")
+    link(rel="stylesheet" type="text/css" href="fonts/iconfont/material-icons.css")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    
+  body
+        ul(id="dropdown1" class="dropdown-content grey lighten-3")
+          li
+            a(href="/generar_contrato" class="green-text" style="font-weight:bold") Generar contrato
+          li
+            a(href="/indexSecre" class="green-text" style="font-weight:bold") Ver contratos
+            
+        ul(id="dropdown2" class="dropdown-content grey lighten-3")
+          li
+            a(href="/generar_bitacora" class="green-text" style="font-weight:bold") Generar bitacora de viaje
+          li
+            a(href="/ver_bitacoras" class="green-text" style="font-weight:bold") Ver bitacoras de viaje
+        
+        ul(id="dropdown3" class="dropdown-content grey lighten-3")
+          li
+            a(href="/generar_orden" class="green-text" style="font-weight:bold") Generar orden de servicio
+          li
+            a(href="/ver_ordenServicio" class="green-text" style="font-weight:bold") Ver orden de servicio
+          
+        ul(id="dropdown4" class="dropdown-content grey lighten-3")
+          li
+            a(href="/agendar_servicio" class="green-text" style="font-weight:bold") Agendar servicio
+          li
+            a(href="/ver_agenda" class="green-text" style="font-weight:bold") Ver agenda
+        
+        div(class="z-depth-3 col s12 m10 l10 offset-l1 ")
+          div
+            div(class="row grey lighten-3")
+              div(class="col s1 push-s1 ")
+                ul(id="slide-out" class="sidenav light-blue darken-4")
+                  li
+                    div(class="user-view")
+                      div(class="background green")
+                        img(src="")
+                      a(href="#user")
+                        img(class="circle" src="images/media.jpg")
+                      a(href="#name")
+                        span(class="white-text name" style="font-size:20px") #{user_nombre}
+                        a(href="/logout/")
+                          span(style="color: #ed1b24; font-weight:bold") Cerrar sesion
+                  li
+                    a(class="dropdown-trigger white-text" href="#!" data-target="dropdown1") Contrato
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(href="#!" class="dropdown-trigger white-text" data-target="dropdown2") Bitacora de viaje
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(class="dropdown-trigger white-text" href="#!" data-target="dropdown3") Orden de servicio
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(href="#!" class="dropdown-trigger white-text" data-target="dropdown4") Agenda
+                      i(class="material-icons right") arrow_drop_down
+                a(href="#" data-target="slide-out" class="sidenav-trigger")
+                  i(class="material-icons #01579b" style="font-size: 40px; padding-top:30px" ) menu    
+              div(class="col s7 push-s2")
+                  img(src="images/mapa.png" width="120" height="70" style="padding-top: 10px")
+                  h4(class="right green-text darken-4" style="padding-bottom:10px; padding-left:20px") ServiBus Servicios Turisticos Terrestres 
+        div(class="container")
+          div(class="row")
+            div(clas="col l10 m12 s12 offset-l1")
+              h4.center.bold Generar bitacora de viaje
+            div(class="col l8 offset-l2 m12 s10")
+              form(onsubmit="return findContrato(this)")
+                div(class="input-field z-depth-3")
+                  input(id="search" name="contrato" type="search" required="true" style="text-align:center" placeholder="Buscar folio de contrato")
+                  label(class="label-icon" for="contrato")
+                    i(class="material-icons left" style="padding-top:10px") search
+                  i(class="material-icons") close
+          div(class="col l12 m12 s12")
+            form(method="post" action="/registrar/bitacora")
+              div(class="row")
+                label(for="aDate" id="aDate" style="font-size: 20px; color: blue; text-bold; font-weight:bold" class="form-control col s3 push-s9")
+              div(id="dataInfo")  
+                div(class="row")
+                  div(class="input-field col s4 push-s1")
+                    input(type="text" class="validate" id="tipo_unidad")
+                    label(for="tipo_unidad" style="color:blue") Tipo de unidad
+                  div(class="input-field col s3 push-s1 pull-s1")
+                    input(id="marca" type="text" class="validate color-text-blue" required)
+                    label(for="marca" style="color:blue") Marca
+                  div(class="input-field col s3 push-s1")
+                    input(type="text" class="validate" id="modelo")
+                    label(for="modelo" style="color:blue") Modelo
+                div(class="row")
+                  div(class="input-field col s5 push-s1")
+                    input(type="text" class="validate" id="placas")
+                    label(for="placas" style="color:blue") No. de placas
+                  div(class="input-field col s5 push-s1 pull-s1")
+                    input(id="no_economico" type="text" class="validate color-text-blue" required)
+                    label(for="no_economico" style="color:blue") No. economico
+                div(class="row")
+                  div(class="col s10 push-s1 ")
+                    hr( style="background: #31B404; height:3px ")
+                div(class="row")
+                  div(class="input-field col s8 push-s1 pull-s1")
+                    input(type="text" class="validate" id="operador")
+                    label(for="operador" style="color:blue") Nombre del operador
+                  div(class="input-field col s2 push-s2 pull-s1")
+                    button(type="submit" class="col s1" style="padding-left:30px")
+                      i(class="material-icons #11d61e right" ) person_add  
+                div(class="row")
+                  div(class="input-field col s3 push-s1")
+                    input(type="text" class="validate" id="noLicencia")
+                    label(for="noLicencia" style="color:blue") No. Licencia
+                  div(class="input-field col s3 push-s1 pull-s1")
+                    input(id="tipoLicencia" type="text" class="validate color-text-blue" required)
+                    label(for="tipoLicencia" style="color:blue") Tipo de licencia
+                  div(class="input-field col s4 push-s1")
+                    i(class="material-icons prefix") date_range
+                    input(type="text" class="validate" id="vigencia")
+                    label(for="vigencia" style="color:blue") Vigencia  
+                div(class="row")
+                  div(class="col s10 push-s1 ")
+                    hr( style="background: #31B404; height:3px ") 
+                div(class="row")
+                  div(class="input-field col s3 push-s1")
+                    input(type="text" class="validate" id="origen")
+                    label(for="origen" style="color:blue") Origen
+                  div(class="input-field col s3 push-s1 pull-s1")
+                    input(id="destino" type="text" class="validate color-text-blue" required)
+                    label(for="destino" style="color:blue") Destino
+                  div(class="input-field col s2 push-s1")
+                    i(class="material-icons prefix") access_time
+                    input(type="text" class="validate" id="horasalida")
+                    label(for="horasalida" style="color:blue; font-size:13px") Hora de salida
+                  div(class="input-field col s2 push-s1")
+                    i(class="material-icons prefix") access_time
+                    input(type="text" class="validate" id="horallegada")
+                    label(for="horallegada" style="color:blue; font-size:13px") Hora de llegada 
+              div(class="row")
+                div(class="input-field col s5 pull-s1 push-s1")
+                  select(name="viaje" required)
+                    option(value="sencillo") Sencillo
+                    option(value="redondo") Redondo
+                  label(for="viaje" style="color:blue") Tipo de traslado 
+              div(class="row")
+                div(class="col s12")
+                  button(class="btn waves-effect waves-light col s4 push-s7" type="submit" name="registrar") Generar bitacora de viaje
+                    i(class="material-icons right") send       
+                  
+        
+        script.
+              (function($){
+                $(function(){
+                $('.sidenav').sidenav();
+                $(".dropdown-trigger").dropdown();
+                });
+              })(jQuery);
+              $(document).ready(function(){
+                $('.datepicker').datepicker();
+              });
+              $(document).ready(function(){
+                $('select').formSelect();
+              });
+              $(document).ready(function() {
+                var now = moment();
+                $("#aDate").text(now.format("lll"));
+              });
+            
+              
+              
+          
