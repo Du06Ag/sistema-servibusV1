@@ -1,0 +1,194 @@
+doctype html
+html
+  head
+    title ServiBus Website
+    
+    script(src="javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="javascripts/materialize.js")
+    script(type="text/javascript" src="javascripts/moments.js")
+    script(src="javascripts/index_recepcionista.js")
+    
+    link(rel="stylesheet" type="text/css" href="stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="stylesheets/materialize.css")
+    link(rel="stylesheet" type="text/css" href="fonts/iconfont/material-icons.css")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    
+  body  
+        ul(id="dropdown1" class="dropdown-content grey lighten-3")
+          li
+            a(href="/cotizacion_presencial" class="green-text" style="font-weight:bold") Nueva cotizacion
+          li
+           a(href="/indexRecep" class="green-text" style="font-weight:bold") Ver cotizaciones
+        div(class="z-depth-3 col s12 m10 l10 offset-l1 ")
+          div
+            div(class="row grey lighten-3")
+              div(class="col s1 push-s1 ")
+                ul(id="slide-out" class="sidenav light-blue darken-4")
+                  li
+                    div(class="user-view")
+                      div(class="background green")
+                        img(src="")
+                      a(href="#user")
+                        img(class="circle" src="images/primera.jpg")
+                      a(href="#name")
+                        span(class="white-text name" style="font-size:20px") #{user_nombre}
+                        a(href="/logout/")
+                          span(style="color: #ed1b24; font-weight:bold") Cerrar sesion
+                  li
+                    a(class="dropdown-trigger white-text" href="#!" data-target="dropdown1") Cotizaciones
+                      i(class="material-icons right") arrow_drop_down
+                  
+                a(href="#" data-target="slide-out" class="sidenav-trigger")
+                  i(class="material-icons #01579b" style="font-size: 40px; padding-top:30px" ) menu    
+              div(class="col s7 push-s2")
+                  img(src="images/mapa.png" width="120" height="70" style="padding-top: 10px")
+                  h4(class="right green-text darken-4" style="padding-bottom:10px; padding-left:20px") ServiBus Servicios Turisticos Terrestres 
+        
+        div(class="row padding-top padding-bottom")
+          div(class="z-depth-4 col s6 push-s3")
+            h5(class="center-align") Registra Cotizacion
+                      
+        div(class="container ")
+          br
+          div(class="row padding-top padding-bottom")
+            div(class="z-depth-0 col s12 m12 l10 offset-l1")
+              label(for="aDate" id="aDate" style="font-size: 20px; color: blue; text-bold; font-weight:bold" class="form-control col s4 push-s8")        
+            form(class="col s10 push-s1 " method="post" action="/registrar_coti" style="")
+              div(class="row")
+                div(class="input-field col s12 m12 l1 offset-l4 ")
+                  a(class="btn-floating btn-tiny waves-effect waves-light green btn modal-trigger" data-target="seleccionar_persona")
+                    i(class="material-icons" ) search
+                div(class="input-field col s12 m12 l3 ")
+                  input(name="id_persona" id="id_persona" class="validate" type="text" required readonly placeholder="Identificador")
+                  label(for="id_persona") ID persona
+                div(class="row")
+                  div(class="input-field col s12")
+                    input(id="nombre" name="nombre" type="text" class="validate color-text-blue" required)
+                    label(for="nombre" id="nom_label" style="color:blue") Nombre
+              div(id="datos_persona")
+                div(class="row")
+                  div(class="input-field col s6")
+                    input(type="text" class="validate" id="ap_paterno" name="ap_paterno")
+                    label(for="ap_paterno" style="color:blue") Apellido paterno
+                  div(class="input-field col s6")
+                    input(id="ap_materno"  name="ap_materno" type="text" class="validate")
+                    label(for="ap_materno" style="color:blue") Apellido materno
+                div(class="row")
+                  div(class="input-field col s6 ")
+                    input(name="telefono" id="telefono" type="text" class="validate")
+                    label(for="telefono" style="color:blue") Telefono
+                  div(class="input-field col s6")
+                    input(id="correo" type="email" name="correo" class="validate")
+                    label(for="correo" style="color:blue") Correo Electronico
+                div(class="row")
+                  div(class="input-field col s3")
+                    input(id="calle" name="calle" type="text" class="validate")
+                    label(for="calle" style="color:blue") Calle
+                  div(class="input-field col s3")
+                    input(id="num_interior" name="num_interior" type="text" class="validate")
+                    label(for="num_interior" style="color:blue") Numero Interior
+                  div(class="input-field col s3")
+                    input(id="colonia" name="colonia" type="text" class="validate")
+                    label(for="colonia" style="color:blue") Colonia
+                  div(class="input-field col s3")
+                    input(id="codigo_postal" name="codigo_postal" type="text" class="validate")
+                    label(for="codigo_postal" style="color:blue") Codigo Postal
+              hr( style="background: #31B404; height:3px")
+              div(class="row")
+                div(class="input-field col s6")
+                  input(class="validate" name="ciudad_origen" type="text" id="ciudad_origen")
+                  label(for="ciudad_origen" style="color:blue;") Ciudad de origen
+                div(class="input-field col s6")
+                  input(class="validate" type="text" name="lugar_origen" id="lugar_origen")
+                  label(for="lugar_origen" style="color:blue") Lugar de salida
+              div(class="row")
+                div(class="input-field col s6")
+                  input(class="validate" type="text" name="ciudad_destino" id="ciudad_destino")
+                  label(for="ciudad_destino" style="color:blue") Ciudad de destino
+                div(class="input-field col s6")
+                  input(class="validate" type="text" name="lugar_destino" id="lugar_destino")
+                  label(for="lugar_destino" style="color:blue") Lugar de destino
+              div(class="row")
+                div(class="input-field col s3")
+                  i(class="material-icons prefix") date_range
+                  input(type="text" class="datepicker" name="fecha_salida" id="fecha_salida")
+                  label(for="fecha_salida" style="color:blue") Fecha salida
+                div(class="input-field col s3")
+                  i(class="material-icons prefix") access_time
+                  input(type="text" class="timepicker" name="hora_salida" id="hora_salida")
+                  label(for="hora_salida" style="color:blue") Hora salida
+                div(class="input-field col s3")
+                  i(class="material-icons prefix") date_range
+                  input(type="text" class="datepicker" name="fecha_regreso" id="fecha_regreso")
+                  label(for="fecha_regreso" style="color:blue; font-size:14px") Fecha regreso
+                div(class="input-field col s3")
+                  i(class="material-icons prefix ") access_time
+                  input(type="text" class="timepicker" name="hora_regreso" id="hora_regreso")
+                  label(for="hora_regreso" style="color:blue") Hora regreso
+              div(class="row")
+                div(class="input-field col s6")
+                  select(name="tipo" required)
+                    each unidad in data.unidades
+                      option(value=unidad.id_tipo_unidad)=unidad.modelo_unidad +' '+unidad.numero_plazas +' plazas'
+                  label(for="tipo" style="color:blue") Tipo de unidad
+                div(class="input-field col s6")
+                  input(type="text" id="num_unidades" name="num_unidades")
+                  label(for="num_unidades" style="color:blue") Num. de unidades
+              div(class="row")
+                div(class="input-field col s12")
+                 input(type="text" id="itinerario" name="itinerario" data-length="150")
+                 label(for="itinerario" style="color:blue") Itinerario
+              div(class="row")
+                div(class="input-field col s6 push-s6")
+                  input(type="text" id="importe" name="importe")
+                  label(for="importe" style="color:blue" ) Impote del servicio $
+              div(class="row")
+                div(class="col s12")
+                  button(class="btn waves-effect waves-light col s6 push-s6 " type="submit" name="cotizar") Registrar cotizacion 
+                    i(class="material-icons right") send
+
+        div(id="seleccionar_persona" class="modal modal-fixed-footer")
+          div(class="modal-content")
+            h4 Buscar persona por nombre
+            form(onsubmit="return getPersona(this);")
+              div(class="input-field z-depth-3")
+                input(id="search" name="nombre_persona" type="search" required="true" placeholder="Ingrese el nombre de la persona:")
+                label(class="label-icon" for="search")
+                  i(class="material-icons left") search
+                i(class="material-icons") close
+            
+            ul(class="collapsible" data-collapsible="accordion" id="persona_list")
+          div(class="modal-footer")
+            a(class="modal-close waves-effect waves-green btn-flat" data-dismiss="modal") Cerrar
+        
+        script.
+              (function($){
+                $(function(){
+                $('.sidenav').sidenav();
+                $(".dropdown-trigger").dropdown();
+                });
+              })(jQuery);
+              $(document).ready(function(){
+                $('.datepicker').datepicker();
+              });
+              $(document).ready(function() {
+                $('input#itinerario').characterCounter();
+              });
+              $(document).ready(function() {
+                var now = moment();
+                $("#aDate").text(now.format("lll"));
+              });
+              $(document).ready(function(){
+                $('select').formSelect();
+              });
+              $(document).ready(function(){
+                $('.timepicker').timepicker();
+              });
+              $(document).ready(function(){
+                $('.modal').modal();
+              });
+            
+              
+              
+          
