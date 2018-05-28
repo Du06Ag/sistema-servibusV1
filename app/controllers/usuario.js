@@ -11,29 +11,34 @@ exports.agregarUsuario = function(req, res){
 					password=hash(req.body.password);
 					id_empleado= req.body.id_empleado;
 					rol = req.body.rol;
-					console.log(nombre + password + id_empleado + rol );
+					console.log(nombre +' '+ password +' '+ id_empleado +' '+ rol );
 			    data = {}
 			    db.query("select * from cat_rol where nombre=?",req.body.rol, (err,rows) => {
 						data['puestos'] = JSON.parse(JSON.stringify(rows[0]));
+						console.log(data);
 						if(err){
 							console.log(err);
 						}else{
-							db.query("select * from usuario where id_empleado=?",id_empleado, (err, rows) =>{
+							db.query("SELECT COUNT(*) as result FROM usuario where id_empleado=?",id_empleado, (err, rows) =>{
 								data['usuario']=JSON.parse(JSON.stringify(rows[0]));
+								console.log(data);
 								if(err){
 									console.log(err);
-								}else if(id_empleado == data.usuario.id_empleado){
-									console.log('Usuario repetido error');
-      					  res.redirect('/empleado');
 								}else{
-									db.query("insert into usuario(id_usuario,nombre, password, estado, id_empleado, id_rol) values(default,?,?,'Activo',?,?)",[nombre, password, id_empleado, data.puestos.id_rol], (err, rows) => {
-										if(err){
-											console.log(err);
-										}else{
-											console.log('Success');
-											res.redirect('/index');
-										}
-									});
+									console.log(data.usuario.result);
+									if(data.usuario.result=='0'){
+										db.query("insert into usuario(id_usuario,nombre, password, estado, id_empleado, id_rol) values(default,?,?,'Activo',?,?)",[nombre, password, id_empleado, data.puestos.id_rol], (err, rows) => {
+											if(err){
+												console.log(err);
+											}else{
+												console.log('Success');
+												res.redirect('/index');
+											}
+										});
+									}else{
+										console.log('Usuario repetido error');
+      					  	res.redirect('/empleado');
+									}
 								}
 							});
 						}
