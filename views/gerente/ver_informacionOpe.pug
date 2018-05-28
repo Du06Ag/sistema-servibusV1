@@ -1,0 +1,124 @@
+html
+  head
+    title ServiBus Website
+    
+    script(src="/../javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="/../javascripts/materialize.js")
+    script(type="text/javascript" src="/../javascripts/moments.js")
+    
+    
+    
+    link(rel="stylesheet" type="text/css" href="/../stylesheets/style.css")
+    link(rel="stylesheet" type="text/css" href="/../stylesheets/materialize.css")
+    link(rel="stylesheet" type="text/css" href="/../fonts/iconfont/material-icons.css")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    
+  body
+        ul(id="dropdown1" class="dropdown-content grey lighten-3")
+          li
+            a(href="/nuevo_empleado" class="green-text" style="font-weight:bold") Nuevo empleado
+          li
+            a(href="/ver_empleados" class="green-text" style="font-weight:bold") Ver empleados
+            
+        ul(id="dropdown2" class="dropdown-content grey lighten-3")
+          li
+            a(href="/registrar_unidad" class="green-text" style="font-weight:bold") Nueva unidad
+          li
+            a(href="/ver_unidades" class="green-text" style="font-weight:bold") Ver Unidades
+        
+        div(class="z-depth-3 col s12 m10 l10 offset-l1 ")
+          div
+            div(class="row grey lighten-3")
+              div(class="col s1 push-s1 ")
+                ul(id="slide-out" class="sidenav light-blue darken-4")
+                  li
+                    div(class="user-view")
+                      div(class="background green")
+                        img(src="")
+                      a(href="#user")
+                        img(class="circle" src="images/couple.jpg")
+                      a(href="#name")
+                        span(class="white-text name" style="font-size:20px") #{user_nombre}
+                        a(href="/logout/")
+                          span(style="color: #ed1b24; font-weight:bold") Cerrar sesion
+                  li
+                    a(class="white-text" href="/index") Usuarios del sistema
+                  li
+                    a(class="dropdown-trigger white-text" href="#!" data-target="dropdown1") Empleados
+                      i(class="material-icons right") arrow_drop_down
+                  li
+                    a(href="#!" class="dropdown-trigger white-text" data-target="dropdown2") Unidades
+                      i(class="material-icons right") arrow_drop_down
+                a(href="#" data-target="slide-out" class="sidenav-trigger")
+                  i(class="material-icons #01579b" style="font-size: 40px; padding-top:30px" ) menu    
+              div(class="col s7 push-s2")
+                  img(src="images/mapa.png" width="120" height="70" style="padding-top: 10px")
+                  h4(class="right green-text darken-4" style="padding-bottom:10px; padding-left:20px") ServiBus Servicios Turisticos Terrestres 
+      
+        div(class="container")
+          div(class="row")
+            div(class="col l8 offset-l1 m12 s12 ")
+              h4(class="center bold") Informacion del Empleado 
+            div(class="col l2 m12 s2")
+              div(class="input-field")
+                  a(href="/editar_empleado"+info_emp.id_empleado class="btn-floating btn-large cyan pulse")
+                      i(class="material-icons") edit 
+            div(class="col l12 m12 s12")
+              table(class="highlight z-depth-3 striped centered" )
+                thead
+                  tr
+                    th Datos
+                    th Informacion
+                tbody
+                  tr
+                    td(style="font-weight:bold;") Id Empleado
+                    td=info_emp.id_empleado
+                  tr
+                    td(style="font-weight:bold;") Nombre
+                    td=info_emp.nombre
+                  tr
+                    td(style="font-weight:bold;") Telefono
+                    td=info_emp.telefono
+                  tr
+                    td(style="font-weight:bold;") Correo electronico
+                    td=info_emp.correo_electronico
+                  tr
+                    td(style="font-weight:bold;") Direccion
+                    td=info_emp.direccion
+                  tr
+                    td(style="font-weight:bold;") Sexo
+                    td=info_emp.sexo 
+                  tr
+                    td(style="font-weight:bold;") Estado civil
+                    td=info_emp.estado_civil
+                  tr
+                    td(style="font-weight:bold;") Fecha de nacimiento
+                    td=info_emp.fecha_nacimiento
+                  tr
+                    td(style="font-weight:bold;") Puesto
+                    td=info_emp.puesto 
+                    tr
+                      td(style="font-weight:bold;") Tipo de pago
+                      td=info_emp.tipo_pago
+                    tr
+                      td(style="font-weight:bold;") No. licencia
+                      td=info_emp.numero_licencia
+                    tr
+                      td(style="font-weight:bold;") Tipo de licencia
+                      td=info_emp.tipo_licencia
+                    tr
+                      td(style="font-weight:bold;") Vigencia de licencia
+                      td=info_emp.vigencia_licencia
+                    tr
+                      td(style="font-weight:bold;") Estatus
+                      td=info_emp.estatus
+        
+        script.
+              (function($){
+                $(function(){
+                $('.sidenav').sidenav();
+                $(".dropdown-trigger").dropdown();
+                });
+              })(jQuery);
+                     
