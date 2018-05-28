@@ -1,0 +1,54 @@
+doctype html
+html
+  head
+      
+    title ServiBus Website
+    
+    script(src="javascripts/jquery-3.1.1.js")
+    script(type="text/javascript" src="javascripts/materialize.js") 
+    script(src="javascripts/vanilla-notify.js")
+    
+    link(rel="stylesheet" type="text/css" href="stylesheets/materialize.css")
+    link(rel="stylesheet" type="text/css" href="fonts/iconfont/material-icons.css")
+    link(rel="stylesheet" type="text/css" href="stylesheets/vanilla-notify.css")
+    //- scripts de terceros
+    script(src="javascripts/common.js")
+    //- stylessheets de terceros
+    link(rel="stylesheet" type="text/css" href="stylesheets/common.css")
+    link(href="/../images/fav.ico/favicon.ico" rel="icon" type="image/ico")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+  
+  body()
+    div(class="container")
+      if (message.length > 0)
+        input(type="hidden" id="message" value=message)
+        script.
+          error($('#message').val());         
+      br
+      div(class="row padding-top padding-bottom")
+        div(class="z-depth-3 white col s12 m10 l10 offset-l1")    
+          form(action="/login" method="post")
+            br
+            h4(class="center green-text darken-2") ServiBus Servicios Turisticos Terrestres
+          
+            div(class="center col s10 m10 l10 offset-s1 offset-m1 offset-l1 color-text")
+              img(src="images/mapa.png" class="responsive-img logo")
+              h4(class="center") Inicio de sesión
+            div(class="input-field col s10 m8 l8 offset-s1 offset-m2 offset-l2")
+              i(class="material-icons prefix") account_circle
+              input(type="text" class="validate" id="usuario" name="usuario" required autofocus)
+              label(for="usuario") Usuario
+            div(class="input-field col s10 m8 l8 offset-s1 offset-m2 offset-l2")
+              i(class="material-icons prefix") lock
+              input(type="password" class="validate" id="password" name="password" required)
+              label(for="password") Password
+            div(class="input-field col s10 m8 l8 offset-s1 offset-m2 offset-l2 margin-top margin-bottom")
+              button(class="waves-effect waves-light right btn color-back" type="submit") Ingresar
+                i(class="material-icons right") send
+              button(class="waves-effect waves-light rigth btn color-back" type="button" onclick="location.href='/cotizacion'") Regresar
+                i(class="material-icons left") keyboard_return
+         
+
+        
+     
+        
