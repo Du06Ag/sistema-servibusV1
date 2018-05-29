@@ -196,6 +196,26 @@ exports.agendar = (req, res) => {
   });
 }
 
+exports.APITipoUnidad = (req, res) => {
+  console.log('GET /api/APITipoUnidad/', req.params.unidad);
+
+  db.query("select tipo_unidad.id_tipo_unidad as id, tipo_unidad.marca_unidad as marca, tipo_unidad.modelo_unidad as modelo, tipo_unidad.numero_plazas as plazas, unidad.numero_economico as numero, unidad.numero_placas, unidad.estatus from tipo_unidad join unidad on unidad.id_tipo_unidad = tipo_unidad.id_tipo_unidad where tipo_unidad.id_tipo_unidad=?;", [req.params.unidad], (err, rows) => {
+    var unidades = JSON.parse(JSON.stringify(rows));
+    res.status(200).json(unidades);
+    console.log(unidades);
+  });
+}
+
+exports.APIOperadorDisponible = (req, res) => {
+  console.log('GET /api/APIOperadorDisponible/');
+
+  db.query("select concat(empleado.nombre,' ',empleado.ap_paterno,' ',empleado.ap_materno) as nombre, empleado.telefono, operador.id_operador, operador.numero_licencia, operador.tipo_licencia, operador.vigencia_licencia as vigencia, operador.estatus from operador join empleado on empleado.id_empleado = operador.id_empleado;", (err, rows) =>{
+    var choferes = JSON.parse(JSON.stringify(rows));
+    res.status(200).json(choferes)
+    console.log(choferes);
+  });
+}
+
 exports.APIFindContrato = (req, res) =>{
   console.log('GET /api/APIFindContrato/:contrato', req.params.contrato);
   query="select cotizacion.id_cotizacion as cotizacion, concat(cotizacion.destino,', ',cotizacion.lugar_destino) as destino, concat(cotizacion.origen,', ', cotizacion.lugar_salida) as salida, cotizacion.hora_salida, cotizacion.hora_regreso, concat(persona.nombre,' ',persona.ap_paterno,' ',persona.ap_materno) as nombre, contrato.id_contrato as contrato, agenda.id_agenda as agenda, agenda.estatus, unidad.numero_economico,unidad.numero_placas as placas, tipo_unidad.id_tipo_unidad, concat(tipo_unidad.marca_unidad,' ',tipo_unidad.modelo_unidad) as tipo, tipo_unidad.marca_unidad as marca, tipo_unidad.modelo_unidad as modelo, operador.id_operador, empleado.id_empleado, concat(empleado.nombre,' ',empleado.ap_paterno,' ',empleado.ap_materno) as operador, operador.numero_licencia, operador.tipo_licencia, operador.vigencia_licencia from agenda join contrato on contrato.id_contrato = agenda.id_contrato join cotizacion on cotizacion.id_cotizacion = contrato.id_cotizacion join persona on persona.id_persona = cotizacion.id_persona join unidad on unidad.numero_economico = agenda.numero_economico join tipo_unidad on tipo_unidad.id_tipo_unidad = unidad.id_tipo_unidad join operador on operador.id_operador = agenda.id_operador join empleado on empleado.id_empleado = operador.id_empleado where contrato.id_contrato=?;";
