@@ -165,13 +165,13 @@ module.exports = function(app, passport, express) {
 		//api detalles de reportes modal
 		api.route('/reportesDetalles/:id_contrato')
 				.get(isLoggedIn, contadorCTRL.APIReporteDetalles);
-	
-		//api buscar unidad para agenda
-	 	api.route('/unidad/buscar/tipo/:unidad')
+
+	 //api buscar unidad para agenda
+	 api.route('/unidad/buscar/tipo/:unidad')
 	 		 .get(isLoggedIn, secretariaCTRL.APITipoUnidad);
 
-	 	//api buscar operador para agenda
-	 	api.route('/operador/buscar/')
+	 //api buscar operador para agenda
+	 api.route('/operador/buscar/')
 	 		 .get(isLoggedIn, secretariaCTRL.APIOperadorDisponible);
 
 		app.use('/api', api);
