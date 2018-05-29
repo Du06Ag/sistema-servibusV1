@@ -156,11 +156,31 @@ function buscarContrato(form){
 				innerHTML+=`<td>${unidad.id_contrato}</td>
 										<td>${unidad.tipo}</td>
 										<td>${unidad.numero_plazas}</td>
-										<td>${unidad.numero_unidades}</td>
-										<td id="unidades">
-										</td>
-										<td id="operadores">
-										</td>`;
+										<td>${unidad.numero_unidades}</td>`;
+				innerHTML+= '<td id="unidades">';
+			  innerHTML+=		'<div class="row">';
+				innerHTML+=			'<div class="input-field col s12 m12 l1" >';
+			  innerHTML+=				'<a class="btn-floating pulse btn-tiny waves-effect waves-light green btn modal-trigger btn tooltipped left" data-position="bottom" data-tooltip="Asignar undad.." data-target="seleccionar_Unidad">';
+				innerHTML+=					'<i class="material-icons" > add </i>';
+				innerHTML+=				'</a>';
+				innerHTML+=			'</div>';
+				innerHTML+=			'<div class="input-field col s12 m12 l7 push-l2">';
+				innerHTML+=			  '<input type="text" id="unid" name="unid" style="text-align:center;" class="validate color-text-blue"></input>';
+				innerHTML+=			'</div>';
+				innerHTML+=		'</div>';
+				innerHTML+=	'</td>'
+				innerHTML+=	'<td id="operadores">';
+				innerHTML+=		'<div class="row">';
+				innerHTML+=			'<div class="input-field col s12 m12 l1" >';
+				innerHTML+=				'<a class="btn-floating pulse btn-tiny waves-effect waves-light green btn modal-trigger btn tooltipped left" data-position="bottom" data-tooltip="Asignar undad.." data-target="seleccionar_Operador">';
+				innerHTML+=					'<i class="material-icons" > add </i>';
+				innerHTML+=				'</a>';
+				innerHTML+=			'</div>';
+				innerHTML+=			'<div class="input-field col s12 m12 l7 push-l2">'
+				innerHTML+=				'<input type="text" id="opera" name="opera" style="text-align:center;" class="validate color-text-blue"></input>';
+				innerHTML+=			'</div>';
+				innerHTML+=		'</div>';
+				innerHTML+=	'</td>';
 				innerHTML+='</tr>';
 
 				$('#info_unidades').html(innerHTML);
@@ -349,3 +369,118 @@ function findOrdenContrato(form){
 	return false;
 
 }
+
+function getunidad(form){
+	unidad = form.unidad.value;
+	$.get('/../api/unidad/buscar/tipo/'+unidad, function(data, status){
+			unidades="";
+      data.forEach(function (element, index){
+				unidades += `<li>
+              <div class="collapsible-header">
+                <i class="material-icons left">
+                  airport_shuttle
+                </i>
+                Numero economico ${element.numero}
+                <i class="material-icons right" onclick="seleccionarUnidad(${element.numero});">
+                    add_circle
+                </i>
+              </div>
+              <div class="collapsible-body">
+								<strong style="font-weight: bold;"> Numero de unidad</strong>
+								<span> ${element.numero}  </span>
+								<br>
+                <strong style="font-weight: bold;"> Marca: </strong>
+                <span>${element.marca} </span>
+                <br>
+                <strong style="font-weight: bold;"> Modelo: </strong>
+                <span>${element.modelo} </span>
+                <br>
+                <strong style="font-weight: bold;"> No. de plazas: </strong>
+                <span>${element.plazas} </span>
+                <br>
+                <strong style="font-weight: bold;"> placas </strong>
+                <span>${element.placas} </span>
+                <br>
+								<strong style="font-weight: bold;"> estatus </strong>
+                <span>${element.estatus} </span>
+              </div>
+            </li>`;
+			});
+	    if(unidades == ""){
+	      $('#all_unidades').html("<p class='red-text center'> No se encontraron resultados, seleccione un tipo de unidad....</p>")
+	    }else{
+	      $('#all_unidades').html(unidades);
+	    }
+	  });
+	  return false;
+}
+
+function seleccionarUnidad (numero){
+	$('#unid').val(numero);
+	$('#seleccionar_Unidad').modal('close');
+}
+
+$(document).ready(function(){
+		$('.seleccionar_Unidad').modal({opacity: .7});
+});
+
+$(document).ready(function(){
+		$('.collapsible').collapsible();
+});
+
+function getoperador(form){
+	$.get('/../api/operador/buscar/', function(data, status){
+			choferes="";
+      data.forEach(function (element, index){
+				choferes += `<li>
+              <div class="collapsible-header">
+                <i class="material-icons left">
+                  person_pin
+                </i>
+                 ${element.nombre}
+                <i class="material-icons right" onclick="seleccionarOperador(${element.id_operador});">
+                    add_circle
+                </i>
+              </div>
+              <div class="collapsible-body">
+								<strong style="font-weight: bold;"> ID </strong>
+								<span> ${element.id_operador}  </span>
+								<br>
+                <strong style="font-weight: bold;"> Telefono: </strong>
+                <span>${element.telefono} </span>
+                <br>
+                <strong style="font-weight: bold;"> Numero de licencia: </strong>
+                <span>${element.numero_licencia} </span>
+                <br>
+                <strong style="font-weight: bold;"> Tipo de licencia: </strong>
+                <span>${element.tipo_licencia} </span>
+                <br>
+                <strong style="font-weight: bold;"> Vigencia </strong>
+                <span>${element.vigencia} </span>
+                <br>
+								<strong style="font-weight: bold;"> estatus </strong>
+                <span>${element.estatus} </span>
+              </div>
+            </li>`;
+			});
+	    if(choferes == ""){
+	      $('#all_operadores').html("<p class='red-text center'> No se encontraron resultados....</p>")
+	    }else{
+	      $('#all_operadores').html(choferes);
+	    }
+	  });
+	  return false;
+}
+
+function seleccionarOperador (numero){
+	$('#opera').val(numero);
+	$('#seleccionar_Operador').modal('close');
+}
+
+$(document).ready(function(){
+		$('.seleccionar_Operador').modal({opacity: .7});
+});
+
+$(document).ready(function(){
+		$('.collapsible').collapsible();
+});
