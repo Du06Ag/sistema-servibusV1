@@ -89,6 +89,7 @@ module.exports = function(app, passport, express) {
 
 		//agenda
 		router.get('/ver_agenda', isLoggedIn, secretariaCTRL.verAgenda);
+		router.post('/agendar/contrato', isLoggedIn, secretariaCTRL.agendar);
 
 	  //recepcionista
     router.get('/indexRecep', isLoggedIn, recepcionistaCTRL.ini);
@@ -164,6 +165,14 @@ module.exports = function(app, passport, express) {
 		//api detalles de reportes modal
 		api.route('/reportesDetalles/:id_contrato')
 				.get(isLoggedIn, contadorCTRL.APIReporteDetalles);
+	
+		//api buscar unidad para agenda
+	 	api.route('/unidad/buscar/tipo/:unidad')
+	 		 .get(isLoggedIn, secretariaCTRL.APITipoUnidad);
+
+	 	//api buscar operador para agenda
+	 	api.route('/operador/buscar/')
+	 		 .get(isLoggedIn, secretariaCTRL.APIOperadorDisponible);
 
 		app.use('/api', api);
 
