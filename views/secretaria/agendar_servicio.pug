@@ -83,7 +83,7 @@ html
                     i(class="material-icons left" style="padding-top:10px") search
                   i(class="material-icons") close
                   div(class="col l12 m12 s12")
-          form(method="post" action="")
+          form(method="post" action="/agendar/contrato")
             div(class="row")
               label(for="aDate" id="aDate" style="font-size: 20px; color: blue; text-bold; font-weight:bold" class="form-control col s3 push-s9")
             div(id="dataInfo")  
@@ -139,6 +139,38 @@ html
               div(class="input-field col s12")
                 button(class="btn waves-effect waves-light col s4 push-s7 pull-s1" type="submit" name="generar") Agendar servicio
                        i(class="material-icons right") send
+        
+        div(id="seleccionar_Unidad" class="modal modal-fixed-footer")
+          div(class="modal-content")
+            h4 Unidades disponibles
+            form(onsubmit="return getunidad(this);")
+              div(class="row")
+                div(class="input-field z-depth-3 col s10")
+                  select(class="icons" name="unidad" id="unidad")
+                    option(value="" disabled selected) Selecciona un tipo de unidad
+                    option(value="1" data-icon="images/camioneta.jpg" class="left") Sprinter 20 plazas
+                    option(value="2" data-icon="images/media.jpg" class="left") Autobus Modelo 2011 47 plazas
+                    option(value="3" data-icon="images/primera.jpg" class="left") Autobus Modelo PB 2017 47 plazas
+                div(class="input-field col s1 push-s1")
+                  button(class="btn waves-effect waves-light" type="submit" name="buscar") 
+                         i(class="material-icons right") search
+                                           
+            ul(class="collapsible" data-collapsible="accordion" id="all_unidades")
+          div(class="modal-footer")
+            a(class="modal-close waves-effect waves-green btn-flat" data-dismiss="modal") Cerrar
+        
+        div(id="seleccionar_Operador" class="modal modal-fixed-footer")
+          div(class="modal-content")
+            form(onsubmit="return getoperador(this);")
+              div(class="row")
+                div(class="input-field  col s12 center")
+                  button(class="btn waves-effect waves-light btn tooltipped" data-position="bottom" data-tooltip="Clik si no se cargaron los Operadores!" style="background-Color: transparent; color:black;" type="submit" name="buscar") Visualizar a todos los operadores disponibles
+                         i(class="material-icons right black-text") airline_seat_recline_normal
+                                           
+            ul(class="collapsible" data-collapsible="accordion" id="all_operadores")
+          div(class="modal-footer")
+            a(class="modal-close waves-effect waves-green btn-flat" data-dismiss="modal") Cerrar
+        
         script.
               (function($){
                 $(function(){
@@ -155,6 +187,12 @@ html
               });
               $(document).ready(function(){
                $('.tooltipped').tooltip();
+              });
+              $(document).ready(function(){
+                $('.modal').modal();
+              });
+              $(document).ready(function(){
+                $('select').formSelect();
               });
             
               
